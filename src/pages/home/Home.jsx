@@ -28,7 +28,7 @@ const Home = () => {
 };
 
 const ResidentialBuildingDevelopmentSection = () => {
-  const { T, lang } = useLang();
+  const { T, lang } = useLang(); 
   const text = {
     ar: ` وصف للمشروع و الملخص للدراسة وصف للمشروع و الملخص للدراسة وصف للمشروع
           و الملخص للدراسة وصف للمشروع و الملخص للدراسة وصف للمشروع و الملخص
