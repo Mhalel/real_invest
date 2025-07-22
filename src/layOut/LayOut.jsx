@@ -4,7 +4,7 @@ const LayOut = ({ children }) => {
   return (
     <>
       <Header />
-      <main className="p-5">{children}</main>
+      <main>{children}</main>
     </>
   );
 };

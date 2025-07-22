@@ -44,14 +44,36 @@ const CustomedlineChart = ({ data }) => {
   const handleDotClick = (dataKey) => {
     setActiveDataKey(dataKey);
   };
+
+  const percentageLeft =
+    activeIndex !== null && data.length > 1
+      ? (activeIndex / (data.length - 1)) * 100
+      : 0;
+
   return (
     <div className="relative h-64 w-full rounded-lg">
+      {activeIndex !== null && (
+        <div
+          className="pointer-events-none absolute h-full w-full top-0 left-0 z-0"
+          style={{
+            background:
+              activeDataKey === "profit"
+                ? `linear-gradient(to bottom, #7B68EE88 0%, transparent 100%)`
+                : activeDataKey === "cost"
+                ? `linear-gradient(to bottom, #FF6B6B88 0%, transparent 100%)`
+                : "transparent",
+            clipPath: `polygon(${percentageLeft}% 0%, 100% 0%, 100% 100%, ${percentageLeft}% 100%)`,
+            transition: "clip-path 0.2s ease-in-out",
+          }}
+        />
+      )}
+
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}
           margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
+          // onMouseMove={handleMouseMove}
+          // onMouseLeave={handleMouseLeave}
           ref={chartRef}
         >
           <defs>
@@ -63,51 +85,12 @@ const CustomedlineChart = ({ data }) => {
               <stop offset="0%" stopColor="#FF6B6B" stopOpacity={0.15} />
               <stop offset="100%" stopColor="#FF6B6B" stopOpacity={0} />
             </linearGradient>
-
-            {/* Vertical line gradients */}
-            <linearGradient id="profitVerticalLine" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#7B68EE" stopOpacity={0.5} />
-              <stop offset="100%" stopColor="#7B68EE" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="costVerticalLine" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#FF6B6B" stopOpacity={0.5} />
-              <stop offset="100%" stopColor="#FF6B6B" stopOpacity={0} />
-            </linearGradient>
           </defs>
 
           <XAxis dataKey="month" axisLine={false} tickLine={false} />
           <CartesianGrid horizontal={true} vertical={false} opacity={0.2} />
           <Tooltip content={<CustomTooltip />} cursor={false} />
 
-          {/* Area for profit line - appears only on hover */}
-          {activeIndex !== null && activeDataKey === "profit" && (
-            <svg>
-              <path
-                d={`M0,${data[activeIndex].profit * 0.1} 
-                      L${window.innerWidth},${data[activeIndex].profit * 0.1} 
-                      L${window.innerWidth},${window.innerHeight} 
-                      L0,${window.innerHeight} Z`}
-                fill="url(#profitGradient)"
-                opacity={0.8}
-              />
-            </svg>
-          )}
-
-          {/* Area for cost line - appears only on hover */}
-          {activeIndex !== null && activeDataKey === "cost" && (
-            <svg>
-              <path
-                d={`M0,${data[activeIndex].cost * 0.1} 
-                      L${window.innerWidth},${data[activeIndex].cost * 0.1} 
-                      L${window.innerWidth},${window.innerHeight} 
-                      L0,${window.innerHeight} Z`}
-                fill="url(#costGradient)"
-                opacity={0.8}
-              />
-            </svg>
-          )}
-
-          {/* Profit Line */}
           <Line
             type="monotone"
             dataKey="profit"
@@ -123,7 +106,6 @@ const CustomedlineChart = ({ data }) => {
             }}
           />
 
-          {/* Cost Line */}
           <Line
             type="monotone"
             dataKey="cost"
@@ -140,29 +122,22 @@ const CustomedlineChart = ({ data }) => {
           />
         </LineChart>
       </ResponsiveContainer>
-      {activeIndex !== null && activeDataKey === "profit" && (
+
+      {/* Vertical gradient line */}
+      {activeIndex !== null && activeDataKey && (
         <div
           className="pointer-events-none absolute"
           style={{
-            left: `${(activeIndex / (data.length - 1)) * 100}%`,
+            left: `${percentageLeft}%`,
             top: 0,
             width: "2px",
             height: "100%",
             background:
-              "linear-gradient(to bottom, #7B68EE 0%, rgba(123, 104, 238, 0) 100%)",
-          }}
-        />
-      )}
-      {activeIndex !== null && activeDataKey === "cost" && (
-        <div
-          className="pointer-events-none absolute"
-          style={{
-            left: `${(activeIndex / (data.length - 1)) * 100}%`,
-            top: 0,
-            width: "2px",
-            height: "100%",
-            background:
-              "linear-gradient(to bottom, #FF6B6B 0%, rgba(255, 107, 107, 0) 100%)",
+              activeDataKey === "profit"
+                ? "linear-gradient(to bottom, #7B68EE 0%, rgba(123, 104, 238, 0) 100%)"
+                : "linear-gradient(to bottom, #FF6B6B 0%, rgba(255, 107, 107, 0) 100%)",
+            zIndex: 10,
+            transform: "translateX(-1px)",
           }}
         />
       )}
