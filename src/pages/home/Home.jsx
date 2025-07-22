@@ -1,10 +1,11 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { useLang } from "../../hooks/LangContext";
-import { useEffect, useRef, useState } from "react";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
-import ClosedPieChart from "../../components/charts/ClosedPieChart";
+import ClosedPieChart from "./components/charts/ClosedPieChart";
 import Table from "../../components/tables/table";
 import PicsSwiper from "./components/PicsSwiper";
+import DonutChart from "./components/charts/DountChart";
+import CustomedlineChart from "./components/charts/CustomedlineChart";
 
 const Home = () => {
   return (
@@ -28,7 +29,7 @@ const Home = () => {
 };
 
 const ResidentialBuildingDevelopmentSection = () => {
-  const { T, lang } = useLang(); 
+  const { T, lang } = useLang();
   const text = {
     ar: ` وصف للمشروع و الملخص للدراسة وصف للمشروع و الملخص للدراسة وصف للمشروع
           و الملخص للدراسة وصف للمشروع و الملخص للدراسة وصف للمشروع و الملخص
@@ -85,34 +86,36 @@ const BasicInformationSection = () => {
   return (
     <section className=" flex max-w-[1080px] mx-auto   md:flex-row flex-col gap-20  lg:gap-[167px] justify-between items-center p-[10px]">
       <ClosedPieChart
-        className="sm:w-[400px] sm:h-[400px] w-[200px] h-[200px]"
+        className="sm:w-[320px]  sm:h-[320px] w-[200px] h-[200px]"
         COLORS={["#E9EAEB", "#7F56D9", "#9E77ED", "#B692F6", "#D6BBFB"]}
         data={dataArray.map(({ Statement, number }) => ({
           name: Statement,
           value: number,
         }))}
       />
-      <Table
-        title={T("البيانات الأساسية", "Basic Data")}
-        dir={T("rtl", "ltr")}
-        data={{
-          header: {
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            number: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("العدد", "number")}</span>
-              </div>
-            ),
-          },
-          body: dataArray,
-        }}
-      />
+      <div className="grow">
+        <Table
+          title={T("البيانات الأساسية", "Basic Data")}
+          dir={T("rtl", "ltr")}
+          data={{
+            header: {
+              Statement: (
+                <div className="flex items-center gap-1 justify-center">
+                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
+                  <span>{T("البيان", "Statement")}</span>
+                </div>
+              ),
+              number: (
+                <div className="flex items-center gap-1 justify-center">
+                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
+                  <span>{T("العدد", "number")}</span>
+                </div>
+              ),
+            },
+            body: dataArray,
+          }}
+        />
+      </div>
     </section>
   );
 };
@@ -172,7 +175,7 @@ const AreasSection = () => {
           }}
         />
       </div>
-      <div className="sm:w-[400px] sm:h-[400px] w-[200px] h-[200px] ">
+      <div className="sm:w-[320px]  sm:h-[320px] w-[200px] h-[200px] ">
         <DonutChart
           title="Access From"
           data={chartData.map(({ Statement, number }) => ({
@@ -183,68 +186,6 @@ const AreasSection = () => {
       </div>
     </section>
   );
-};
-
-import * as echarts from "echarts";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-} from "recharts";
-
-const DonutChart = ({
-  title,
-  data,
-  colors = ["#E9EAEB", "#7F56D9", "#9E77ED", "#B692F6", "#D6BBFB", "#E9D7FE"],
-}) => {
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
-
-  useEffect(() => {
-    if (chartRef.current) {
-      chartInstance.current = echarts.init(chartRef.current);
-      const option = {
-        color: colors,
-        tooltip: {
-          trigger: "item",
-        },
-        series: [
-          {
-            name: title,
-            type: "pie",
-            radius: ["40%", "70%"],
-            avoidLabelOverlap: false,
-            label: {
-              show: false,
-              position: "center",
-            },
-            emphasis: {
-              label: {
-                show: false,
-                fontSize: 40,
-                fontWeight: "bold",
-              },
-            },
-            labelLine: {
-              show: false,
-            },
-            data: data,
-          },
-        ],
-      };
-
-      chartInstance.current.setOption(option);
-
-      return () => {
-        chartInstance.current && chartInstance.current.dispose();
-      };
-    }
-  }, [data, title, colors]);
-
-  return <div ref={chartRef} className="w-full h-full" />;
 };
 
 const CostTableSection = () => {
@@ -1248,41 +1189,7 @@ const CashFlowsFromRent = () => {
   );
 };
 
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    const profit = payload[0].value;
-    const cost = payload[1].value;
-    return (
-      <div className="rounded-lg bg-gray-900 p-3 text-white">
-        <div className="text-xl">
-          {cost},{profit}
-        </div>
-        <div className="text-sm">{label} 10, 2025</div>
-      </div>
-    );
-  }
-
-  return null;
-};
 function ProfitCostChart() {
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [activeDataKey, setActiveDataKey] = useState(null);
-  const chartRef = useRef(null);
-
-  const handleMouseMove = (props) => {
-    if (props && props.activeTooltipIndex !== undefined) {
-      setActiveIndex(props.activeTooltipIndex);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setActiveIndex(null);
-    setActiveDataKey(null);
-  };
-
-  const handleDotClick = (dataKey) => {
-    setActiveDataKey(dataKey);
-  };
   const data = [
     { month: "Jan", profit: 1200, cost: 900 },
     { month: "Feb", profit: 1400, cost: 950 },
@@ -1298,131 +1205,9 @@ function ProfitCostChart() {
     { month: "Dec", profit: 2500, cost: 1400 },
   ];
   return (
-    <div className="relative h-64 w-full rounded-lg">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={data}
-          margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          ref={chartRef}
-        >
-          <defs>
-            <linearGradient id="profitGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#7B68EE" stopOpacity={0.15} />
-              <stop offset="100%" stopColor="#7B68EE" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="costGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#FF6B6B" stopOpacity={0.15} />
-              <stop offset="100%" stopColor="#FF6B6B" stopOpacity={0} />
-            </linearGradient>
-
-            {/* Vertical line gradients */}
-            <linearGradient id="profitVerticalLine" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#7B68EE" stopOpacity={0.5} />
-              <stop offset="100%" stopColor="#7B68EE" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="costVerticalLine" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#FF6B6B" stopOpacity={0.5} />
-              <stop offset="100%" stopColor="#FF6B6B" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-
-          <XAxis dataKey="month" axisLine={false} tickLine={false} />
-          <CartesianGrid horizontal={true} vertical={false} opacity={0.2} />
-          <Tooltip content={<CustomTooltip />} cursor={false} />
-
-          {/* Area for profit line - appears only on hover */}
-          {activeIndex !== null && activeDataKey === "profit" && (
-            <svg>
-              <path
-                d={`M0,${data[activeIndex].profit * 0.1} 
-                      L${window.innerWidth},${data[activeIndex].profit * 0.1} 
-                      L${window.innerWidth},${window.innerHeight} 
-                      L0,${window.innerHeight} Z`}
-                fill="url(#profitGradient)"
-                opacity={0.8}
-              />
-            </svg>
-          )}
-
-          {/* Area for cost line - appears only on hover */}
-          {activeIndex !== null && activeDataKey === "cost" && (
-            <svg>
-              <path
-                d={`M0,${data[activeIndex].cost * 0.1} 
-                      L${window.innerWidth},${data[activeIndex].cost * 0.1} 
-                      L${window.innerWidth},${window.innerHeight} 
-                      L0,${window.innerHeight} Z`}
-                fill="url(#costGradient)"
-                opacity={0.8}
-              />
-            </svg>
-          )}
-
-          {/* Profit Line */}
-          <Line
-            type="monotone"
-            dataKey="profit"
-            stroke="#7B68EE"
-            strokeWidth={3}
-            dot={{ r: 0 }}
-            activeDot={{
-              r: 8,
-              stroke: "#7B68EE",
-              strokeWidth: 2,
-              fill: "#FFFFFF",
-              onClick: () => handleDotClick("profit"),
-            }}
-          />
-
-          {/* Cost Line */}
-          <Line
-            type="monotone"
-            dataKey="cost"
-            stroke="#FF6B6B"
-            strokeWidth={3}
-            dot={{ r: 0 }}
-            activeDot={{
-              r: 8,
-              stroke: "#FF6B6B",
-              strokeWidth: 2,
-              fill: "#FFFFFF",
-              onClick: () => handleDotClick("cost"),
-            }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-
-      {/* Vertical trigger line overlay */}
-      {activeIndex !== null && activeDataKey === "profit" && (
-        <div
-          className="pointer-events-none absolute"
-          style={{
-            left: `${(activeIndex / (data.length - 1)) * 100}%`,
-            top: 0,
-            width: "2px",
-            height: "100%",
-            background:
-              "linear-gradient(to bottom, #7B68EE 0%, rgba(123, 104, 238, 0) 100%)",
-          }}
-        />
-      )}
-
-      {activeIndex !== null && activeDataKey === "cost" && (
-        <div
-          className="pointer-events-none absolute"
-          style={{
-            left: `${(activeIndex / (data.length - 1)) * 100}%`,
-            top: 0,
-            width: "2px",
-            height: "100%",
-            background:
-              "linear-gradient(to bottom, #FF6B6B 0%, rgba(255, 107, 107, 0) 100%)",
-          }}
-        />
-      )}
-    </div>
+    <section>
+      <CustomedlineChart data={data} />
+    </section>
   );
 }
 
