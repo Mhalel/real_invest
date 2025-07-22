@@ -40,8 +40,8 @@ const Header = () => {
           fill="none"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M0 0H12L10 6L12 12H0L2 6L0 0Z"
             fill="#121417"
           />
@@ -51,7 +51,9 @@ const Header = () => {
       <div className="flex items-center  gap-9">
         <nav className="flex gap-9 text-[14px] font-medium leading-[21px]">
           {Links.map(({ nameEn, nameAr, path }) => (
-            <Link to={path}>{T(nameAr, nameEn)}</Link>
+            <Link key={path} to={path}>
+              {T(nameAr, nameEn)}
+            </Link>
           ))}
         </nav>
         <div className="relative">
