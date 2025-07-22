@@ -3,6 +3,7 @@ import { MdHomeFilled } from "react-icons/md";
 import { BiLineChart } from "react-icons/bi";
 import { PiBookmarkBold } from "react-icons/pi";
 import { RiSettings4Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const HeaderV2 = () => {
   return (
@@ -34,18 +35,20 @@ const HeaderV2 = () => {
         />
 
         {/* Icons (use any icon library or emoji for now) */}
-        <span className="text-lg">
+
+        <Link to="/" className="text-lg">
           <MdHomeFilled />
-        </span>
-        <span className="text-lg">
+        </Link>
+
+        <Link to="/Dashboard" className="text-lg">
           <BiLineChart />
-        </span>
+        </Link>
         <span className="text-lg">
           <PiBookmarkBold />
         </span>
-        <span className="text-lg">
+        <Link to="/Settings" className="text-lg">
           <RiSettings4Line />
-        </span>
+        </Link>
       </div>
     </header>
   );
