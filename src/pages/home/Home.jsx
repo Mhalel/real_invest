@@ -9,7 +9,7 @@ import CustomedlineChart from "./components/charts/CustomedlineChart";
 
 const Home = () => {
   return (
-    <div className="font-Cairo flex flex-col gap-[72px] px-16">
+    <div className="font-Cairo flex flex-col gap-[72px] sm:px-16">
       <ResidentialBuildingDevelopmentSection />
       <BasicInformationSection />
       <AreasSection />
@@ -17,7 +17,7 @@ const Home = () => {
       <VariablesRatiosOnSalesSection />
       <ResidentialFloorsSection />
       <TotalRevenueSection />
-      <ProfitCostChart />
+      <ProfitCostSection />
       <CashFlowsFromSalesSection />
       <VariableRatiosOnRent />
       <ResidentialFloorsSection2 />
@@ -84,7 +84,7 @@ const BasicInformationSection = () => {
     },
   ];
   return (
-    <section className=" flex max-w-[1080px] mx-auto   md:flex-row flex-col gap-20  lg:gap-[167px] justify-between items-center p-[10px]">
+    <section className=" flex  mx-auto   md:flex-row flex-col gap-20  lg:gap-[167px] justify-between items-center p-[10px]">
       <ClosedPieChart
         className="sm:w-[320px]  sm:h-[320px] w-[200px] h-[200px]"
         COLORS={["#E9EAEB", "#7F56D9", "#9E77ED", "#B692F6", "#D6BBFB"]}
@@ -175,7 +175,7 @@ const AreasSection = () => {
           }}
         />
       </div>
-      <div className="sm:w-[320px]  sm:h-[320px] w-[200px] h-[200px] ">
+      <div className="sm:w-[340px]  sm:h-[340px] w-[200px] h-[200px] ">
         <DonutChart
           title="Access From"
           data={chartData.map(({ Statement, number }) => ({
@@ -191,8 +191,8 @@ const AreasSection = () => {
 const CostTableSection = () => {
   const { T } = useLang();
   return (
-    <section className=" flex  md:flex-row flex-col">
-      <aside className="bg-[#0E7090] w-full rounded-r-none  rounded-[16px] p-8 flex flex-col gap-8">
+    <section className=" flex  md:flex-row flex-col md:gap-0 gap-10">
+      <aside className="bg-[#0E7090] w-full md:rounded-r-none  rounded-[16px] p-8 flex flex-col gap-8">
         <Table
           title={T("جدول التكاليف", "Cost table")}
           textColor="text-white"
@@ -238,7 +238,7 @@ const CostTableSection = () => {
             ],
           }}
         />
-        <div className="border-4 text-center text-white h-[364px] f border-white rounded-[16px] flex justify-center items-center flex-col gap-4 fotn-cairo ">
+        <div className="border-4 text-center text-white h-[364px]  border-white rounded-[16px] flex justify-center items-center flex-col gap-4 fotn-cairo ">
           <div className="flex flex-col gap-2   ">
             <p className="text-[36px] font-semibold">
               {T("إجمالي تكاليف البناء", "Total Construction Cost")}
@@ -250,7 +250,7 @@ const CostTableSection = () => {
           <p className="text-[48px] font-semibold">4,703,600</p>
         </div>
       </aside>
-      <aside className="w-full border-4 border-[#0E7090] py-8 px-16 rounded-l-none rounded-[16px] flex flex-col gap-8">
+      <aside className="w-full border-4 border-[#0E7090] py-8 px-2 sm:px-16 md:rounded-l-none rounded-[16px] flex flex-col gap-8">
         <div className="flex flex-col gap-8 ">
           <p className="text-[24px] font-bold" dir={T("rtl", "ltr")}>
             {T("جدول التكاليف", "Cost table")}
@@ -1189,7 +1189,8 @@ const CashFlowsFromRent = () => {
   );
 };
 
-function ProfitCostChart() {
+function ProfitCostSection() {
+  const { T } = useLang();
   const data = [
     { month: "Jan", profit: 1200, cost: 900 },
     { month: "Feb", profit: 1400, cost: 950 },
@@ -1205,8 +1206,32 @@ function ProfitCostChart() {
     { month: "Dec", profit: 2500, cost: 1400 },
   ];
   return (
-    <section>
-      <CustomedlineChart data={data} />
+    <section className="flex gap-6 items-start">
+      <div
+        dir={T("rtl", "ltr")}
+        className="hidden md:flex flex-col mt-[40px] gap-[3.4px] "
+      >
+        <div className="flex w-full items-center gap-[6.8px]">
+          <p className="grow">{T("التكلفة", "Cost")}</p>
+          <span className="rounded-full size-[6.8px] bg-[#7F56D9]"></span>
+        </div>
+        <div className="flex w-full items-center gap-[6.8px]">
+          <p className="grow">{T("الدخل", "income")}</p>
+          <span className="rounded-full size-[6.8px] bg-[#9E77ED]"></span>
+        </div>
+      </div>
+      <div className="grow w-full">
+        <div dir={T("rtl", "ltr")} className="flex flex-col gap-2">
+          <p>{T("الربح و التكلفة", "Profit and cost")}</p>
+          <p>
+            {T(
+              "إجمال الربح:" + " 1,170,273.924",
+              "Total Profit: " + " 1,170,273.924"
+            )}
+          </p>
+        </div>
+        <CustomedlineChart data={data} />
+      </div>
     </section>
   );
 }
