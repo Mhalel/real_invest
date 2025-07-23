@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const HeaderV2 = () => {
   return (
-    <header className="bg-[#5D1D6D] text-white rounded-[32px] px-8 py-4 flex items-center justify-between  mx-auto">
+    <header className="bg-[#5D1D6D] my-[15px] mx-2 md:mx-[64px] text-white rounded-[32px] px-8 py-4 flex items-center justify-between  ">
       <div className="flex items-center space-x-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"

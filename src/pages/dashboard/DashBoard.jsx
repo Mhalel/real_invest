@@ -3,14 +3,14 @@ import { useLang } from "../../hooks/LangContext";
 import { Link } from "react-router-dom";
 import { CiFileOn, CiSettings } from "react-icons/ci";
 import { RiDatabase2Line } from "react-icons/ri";
-import { CircleQuestionMark, Settings } from 'lucide-react';
+import { CircleQuestionMark, Settings } from "lucide-react";
 const DashBoard = () => {
   const { T } = useLang();
   return (
-    <div className="flex ">
-      <div className="min-h-screen  flex flex-col justify-between p-[16px] w-[250px]">
-        <div className="flex flex-col gap-4">
-          <h3 className="text-[16px] font-medium">
+    <div dir={T("rtl","ltr")} className="flex ">
+      <div className="min-h-screen  flex flex-col justify-between p-[16px] w-[270px]">
+        <div className="flex  flex-col gap-4">
+          <h3 className="text-[12px] font-medium">
             {T(
               "الاستثمار الحقيقي في المملكة العربية السعودية",
               "Real Investment Saudi-arabia"
@@ -61,42 +61,67 @@ const DashBoard = () => {
           </div>
         </div>
         <div>
-          
-            <Link
-              className="flex items-center gap-[12px] py-2 px-[12px] hover:bg-[#F2F2F5] rounded-[12px] text-[14px] "
-              to="/"
+          <Link
+            className="flex items-center gap-[12px] py-2 px-[12px] hover:bg-[#F2F2F5] rounded-[12px] text-[14px] "
+            to="/"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="19"
+              viewBox="0 0 14 19"
+              fill="none"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="19"
-                viewBox="0 0 14 19"
-                fill="none"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M12.25 0H1.75C0.921573 0 0.25 0.671573 0.25 1.5V18C0.250135 18.2726 0.398147 18.5236 0.636587 18.6557C0.875028 18.7878 1.16636 18.7801 1.3975 18.6356L7 15.1341L12.6034 18.6356C12.8345 18.7796 13.1255 18.787 13.3636 18.655C13.6018 18.523 13.7497 18.2723 13.75 18V1.5C13.75 0.671573 13.0784 0 12.25 0ZM12.25 1.5V12.1472L7.39656 9.11438C7.15336 8.96237 6.84477 8.96237 6.60156 9.11438L1.75 12.1462V1.5H12.25ZM7.39656 13.6144C7.15336 13.4624 6.84477 13.4624 6.60156 13.6144L1.75 16.6472V13.9153L7 10.6341L12.25 13.9153V16.6472L7.39656 13.6144Z"
-                  fill="#121417"
-                />
-              </svg>
-              {T("لوحة التحكم", "Dashboard")}
-            </Link>
-            <Link
-              className="flex items-center gap-[12px] py-2 px-[12px] hover:bg-[#F2F2F5] rounded-[12px] text-[14px] "
-              to="/"
-            >
-             <Settings  size={20}/>
-              {T("الاعدادات", "Settings ")}
-            </Link>
-            <Link
-              className="flex items-center gap-[12px] py-2 px-[12px] hover:bg-[#F2F2F5] rounded-[12px] text-[14px] "
-              to="/"
-            >
-              <CircleQuestionMark />
-              {T("لوحة التحكم", "Help/Support")}
-            </Link>
-          
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.25 0H1.75C0.921573 0 0.25 0.671573 0.25 1.5V18C0.250135 18.2726 0.398147 18.5236 0.636587 18.6557C0.875028 18.7878 1.16636 18.7801 1.3975 18.6356L7 15.1341L12.6034 18.6356C12.8345 18.7796 13.1255 18.787 13.3636 18.655C13.6018 18.523 13.7497 18.2723 13.75 18V1.5C13.75 0.671573 13.0784 0 12.25 0ZM12.25 1.5V12.1472L7.39656 9.11438C7.15336 8.96237 6.84477 8.96237 6.60156 9.11438L1.75 12.1462V1.5H12.25ZM7.39656 13.6144C7.15336 13.4624 6.84477 13.4624 6.60156 13.6144L1.75 16.6472V13.9153L7 10.6341L12.25 13.9153V16.6472L7.39656 13.6144Z"
+                fill="#121417"
+              />
+            </svg>
+            {T("لوحة التحكم", "Dashboard")}
+          </Link>
+          <Link
+            className="flex items-center gap-[12px] py-2 px-[12px] hover:bg-[#F2F2F5] rounded-[12px] text-[14px] "
+            to="/"
+          >
+            <Settings size={20} />
+            {T("الاعدادات", "Settings ")}
+          </Link>
+          <Link
+            className="flex items-center gap-[12px] py-2 px-[12px] hover:bg-[#F2F2F5] rounded-[12px] text-[14px] "
+            to="/"
+          >
+            <CircleQuestionMark />
+            {T("لوحة التحكم", "Help/Support")}
+          </Link>
+          <div className="flex items-center gap-2">
+            <div className="size-10 rounded-full border-[#5D1D6D] border-[3px] overflow-hidden">
+              <img
+                src="/userImg.webp"
+                alt="Blog Post"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div className="text-[14px] ">
+              <p>Olivia Rhye</p>
+              <div className="text-[#535862] flex items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <path
+                    d="M3.91622 11.9088L0.72368 9.22995L0 5.12573L2.08378 1.5165L6.00002 0.0911255L9.91622 1.5165L12 5.12573L11.2763 9.22995L8.08378 11.9088H3.91622Z"
+                    fill="#FD9A0C"
+                  />
+                </svg>
+                <span>10,000</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -132,6 +157,16 @@ const DashBoard = () => {
             <Tag text={T("مقارنة السيناريوهات", "Compare Scenarios")} />
           </div>
         </section>
+          <h3 className="text-[22px] font-bold">{T("المشاريع الرائجة", "Trinding Projects")}</h3> 
+        <section>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-4 ">
+            <TempateCard />
+            <TempateCard />
+            <TempateCard />
+            <TempateCard />
+          </div>
+        </section>
+        <Footer />
       </div>
     </div>
   );
@@ -176,7 +211,7 @@ const Banar = () => {
 const TempateCard = () => {
   const { T } = useLang();
   return (
-    <div className="flex flex-col gap-4 ">
+    <Link to={"/"} className="flex flex-col gap-4 ">
       <div className="rounded-[12px] overflow-hidden">
         <img
           src="/Cardpic.webp"
@@ -190,13 +225,45 @@ const TempateCard = () => {
           "How do you create compelling presentations that wow your colleagues and impress your managers?"
         )}
       </p>
-    </div>
+    </Link>
   );
 };
 
 const Tag = ({ text }) => {
   return (
     <button className="p-[16px] bg-[#D6E5F2] rounded-[12px]">{text}</button>
+  );
+};
+
+const Footer = () => {
+  const { T } = useLang();
+
+  const Links = [
+    { path: "Company", labelEn: "Company", labelAr: "الشركة" },
+    { path: "Privacy", labelEn: "Privacy", labelAr: "الخصوصية" },
+    {
+      path: "Terms-Conditions",
+      labelEn: "Terms and Conditions",
+      labelAr: "الشروط والاحكام",
+    },
+    { path: "/Quick-Links", labelEn: "Quick Links", labelAr: "روابط سريعة" },
+    { path: "/About-Us", labelEn: "About Us", labelAr: "عنا" },
+    { path: "/Services", labelEn: "Services", labelAr: "الخدمات" },
+    { path: "/Support", labelEn: "Support", labelAr: "الدعم" },
+  ];
+
+  return (
+    <div className="mt-32 flex flex-wrap justify-center gap-4 text-sm font-medium">
+      {Links.map(({ path, labelAr, labelEn }, i) => (
+        <Link
+          to={path}
+          key={i}
+          className="hover:scale-110 transition duration-200 whitespace-nowrap"
+        >
+          {T(labelAr, labelEn)}
+        </Link>
+      ))}
+    </div>
   );
 };
 export default DashBoard;

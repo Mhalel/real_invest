@@ -16,7 +16,7 @@ const LayOut = ({ children }) => {
           <HeaderV2 />
         </>
       )}
-      <main className="p-5">{children}</main>
+      <main className="">{children}</main>
     </>
   );
 };
