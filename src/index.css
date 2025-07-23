@@ -8,3 +8,7 @@
 /* *{
     border: 1px solid red;
 } */
+
+.scroll_Bar_None::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
