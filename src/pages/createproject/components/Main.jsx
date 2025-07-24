@@ -1,5 +1,7 @@
 import { useLang } from "../../../hooks/LangContext";
 
+import { useState } from "react";
+
 const Main = ({ setStep, step }) => {
   return (
     <section className=" flex justify-center items-center">
@@ -17,11 +19,168 @@ const Map = () => {
   );
 };
 
+const regions = [
+  {
+    id: 1,
+    name_en: "Riyadh Region",
+    name_ar: "منطقة الرياض",
+    values: ["الرياض"],
+  },
+  {
+    id: 2,
+    name_en: "Eastern Province",
+    name_ar: "المنطقة الشرقية",
+    values: ["الشرقية"],
+  },
+  {
+    id: 3,
+    name_en: "Mecca Region",
+    name_ar: "منطقة مكة المكرمة",
+    values: ["مكة المكرمة"],
+  },
+  {
+    id: 4,
+    name_en: "Al Qassim Province",
+    name_ar: "منطقة القصيم",
+    values: ["القصيم"],
+  },
+  {
+    id: 5,
+    name_en: "Ha'il Region",
+    name_ar: "منطقة حائل",
+    values: ["حائل"],
+  },
+  {
+    id: 6,
+    name_en: "Al Jawf Region",
+    name_ar: "منطقة الجوف",
+    values: ["الجوف"],
+  },
+  {
+    id: 7,
+    name_en: "Tabuk Region",
+    name_ar: "منطقة تبوك",
+    values: ["تبوك"],
+  },
+  {
+    id: 8,
+    name_en: "Northern Borders Region",
+    name_ar: "منطقة الحدود الشمالية",
+    values: ["الحدود الشمالية"],
+  },
+  {
+    id: 9,
+    name_en: "Najran Region",
+    name_ar: "منطقة نجران",
+    values: ["نجران"],
+  },
+  {
+    id: 20,
+    name_en: "Al Bahah Region",
+    name_ar: "منطقة الباحة",
+    values: ["الباحة"],
+  },
+  {
+    id: 21,
+    name_en: "Asir Region",
+    name_ar: "منطقة عسير",
+    values: ["عسير"],
+  },
+  {
+    id: 22,
+    name_en: "Medina Region",
+    name_ar: "منطقة المدينة المنورة",
+    values: ["المدينة المنورة"],
+  },
+  {
+    id: 23,
+    name_en: "Jazan Province",
+    name_ar: "منطقة جازان",
+    values: ["جازان"],
+  },
+];
+const studies = [];
+
+const propertyTypes = [
+  {
+    id: 1,
+    name_ar: "مبنى سكني",
+    name_en: "Residential building",
+    values: ["مبنى سكني"],
+  },
+  {
+    id: 2,
+    name_ar: "مبنى تجاري سكني",
+    name_en: "Commercial residential building",
+    values: ["مبنى تجاري سكني"],
+  },
+  {
+    id: 3,
+    name_ar: "مبنى تجاري",
+    name_en: "Commercial building",
+    values: ["مبنى تجاري"],
+  },
+  {
+    id: 4,
+    name_ar: "مول تجاري",
+    name_en: "Commercial mall",
+    values: ["مول تجاري"],
+  },
+  {
+    id: 5,
+    name_ar: "فلل",
+    name_en: "Villas",
+    values: ["فلل"],
+  },
+  {
+    id: 6,
+    name_ar: "مجمع سكني",
+    name_en: "Residential complex",
+    values: ["مجمع سكني"],
+  },
+  {
+    id: 7,
+    name_ar: "مبنى إداري",
+    name_en: "Administrative building",
+    values: ["مبنى إداري"],
+  },
+  {
+    id: 8,
+    name_ar: "فندقى",
+    name_en: "Hotel",
+    values: ["فندقى"],
+  },
+  {
+    id: 9,
+    name_ar: "برج تجاري سكني",
+    name_en: "Commercial residential tower",
+    values: ["برج تجاري سكني"],
+  },
+  {
+    id: 10,
+    name_ar: "برج تجاري إداري",
+    name_en: "Commercial administrative tower",
+    values: ["برج تجاري إداري"],
+  },
+  {
+    id: 11,
+    name_ar: "برج إداري",
+    name_en: "Administrative tower",
+    values: ["برج إداري"],
+  },
+];
+
 const RealEstateSiteAnalysisReport = () => {
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedStudy, setSelectedStudy] = useState("");
+  const [selectedPropertyType, setSelectedPropertyType] = useState("");
   const { T } = useLang();
   return (
-    <div dir={T("rtl", "ltr")} className="flex gap-8 font-Cairo">
-      <aside className="flex w-full flex-col gap-[46px]">
+    <div
+      dir={T("rtl", "ltr")}
+      className="flex flex-col md:flex-row gap-y-6 md:gap-x-8 font-Cairo"
+    >
+      <aside className="flex w-full md:w-1/2 flex-col gap-[46px]">
         <h3 className="text-center text-[30px] font-medium">
           {T("تقرير تحليل الموقع العقاري", "Real Estate Site Analysis Report")}
         </h3>
@@ -97,50 +256,191 @@ const RealEstateSiteAnalysisReport = () => {
           </svg>
         </button>
       </aside>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="59"
-        height="538"
-        viewBox="0 0 59 538"
-        fill="none"
-      >
-        <path
-          d="M58.6369 0.5H17.6369V277.5L1.36304 294.235L17.6369 304.5V537.5"
-          stroke="black"
-        />
-      </svg>
-      <aside className="flex w-full flex-col gap-2">
-        <p>{T("الأراضي المحددة", "designated lands")}</p>
-        <p>
+
+      <div className="relative hidden md:block h-[600px]">
+        {/* The bracket */}
+        <div className="absolute -top-[330px] -left-2 h-[1200px] w-[59px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 59 538"
+            fill="none"
+            className="h-full w-full text-black"
+          >
+            <path
+              d="M58.6369 0.5H17.6369V277.5L1.36304 294.235L17.6369 304.5V537.5"
+              stroke="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <aside className="flex w-full md:w-1/2 flex-col gap-2">
+        <p className="text-lg font-medium">
+          {T("الأراضي المحددة", "designated lands")}
+        </p>
+        <p className="text-xl leading-[30px] font-medium">
           {T("النرجس بالرياض قطعة رقم 23", "Narcissus in Riyadh, Block No. 23")}
         </p>
-        <p>
+        <p className="text-xl leading-[30px] font-medium">
           {T(
             "لموقع: حي النرجس، الرياض",
             "Location: Al Narjis District, Riyadh"
           )}
         </p>
-        <p>
+        <p className="text-xl leading-[30px] font-medium">
           {T(
             "نوع الرخصة: مبنى تجاري سكني",
             "License Type: Commercial Residential Building"
           )}
         </p>
-        <label>
-          <p>{T("مساحة الأرض م²", "Land area m²")}</p>
-          <input type="text" placeholder={T("مساحة الأرض ", "land area")} />
+        <label className="block w-full">
+          <p className="text-lg font-medium mb-2">
+            {T("مساحة الأرض م²", "Land area m²")}
+          </p>
+          <input
+            type="text"
+            className="w-full border border-[#D5D7DA] rounded-lg py-[8px] px-[12px] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder={T("مساحة الأرض", "Land area")}
+          />
         </label>
-        <label>
-          <p>{T("نوع العقار", "Property type")}</p>
-          <input type="text" placeholder={T("مساحة الأرض ", "land area")} />
+
+        <label className="block w-full relative">
+          <p className="text-lg font-medium mb-2">
+            {T("نوع العقار", "Property type")}
+          </p>
+          <div className="relative">
+            <select
+              className={`w-full appearance-none rounded-lg border bg-white px-[12px] py-[8px] shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                selectedPropertyType === "" ? "text-gray-400" : "text-gray-900"
+              }`}
+              value={selectedPropertyType}
+              onChange={(e) => setSelectedPropertyType(e.target.value)}
+            >
+              <option value="" disabled hidden>
+                {T("مبنى تجاري سكني", "Commercial residential building")}
+              </option>
+              {propertyTypes.map((propertyType) =>
+                propertyType.values.map((val, i) => (
+                  <option
+                    key={`${propertyType.id}-${i}`}
+                    value={val}
+                    className="text-black"
+                  >
+                    {val}
+                  </option>
+                ))
+              )}
+            </select>
+
+            {/* Arrow Icon */}
+            <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
         </label>
-        <label>
-          <p>{T("المدينة", "The city")}</p>
-          <input type="text" placeholder={T("الرياض", "Riyadh")} />
+
+        <label className="block w-full relative">
+          <p className="text-lg font-medium mb-2">{T("المدينة", "The city")}</p>
+          <div className="relative">
+            <select
+              className={`w-full appearance-none rounded-lg border bg-white px-[12px] py-[8px] shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                selectedCity === "" ? "text-gray-400" : "text-gray-900"
+              }`}
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)}
+            >
+              <option value="" disabled hidden>
+                {T("الرياض", "Riyadh")}
+              </option>
+              {regions.map((region) =>
+                region.values.map((val, i) => (
+                  <option
+                    key={`${region.id}-${i}`}
+                    value={val}
+                    className="text-black"
+                  >
+                    {val}
+                  </option>
+                ))
+              )}
+            </select>
+
+            {/* Arrow Icon */}
+            <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
         </label>
-        <label>
-          <p>{T("المدينة", "The city")}</p>
-          <input type="text" placeholder={T("نوع الدراسة", "Type of study")} />
+
+        <label className="block w-full relative">
+          <p className="text-lg font-medium mb-2">
+            {T("نوع الدراسة", "Type of study")}
+          </p>
+          <div className="relative">
+            <select
+              className={`w-full appearance-none rounded-lg border bg-white px-[12px] py-[8px] shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                selectedStudy === "" ? "text-gray-400" : "text-gray-900"
+              }`}
+              value={selectedStudy}
+              onChange={(e) => setSelectedStudy(e.target.value)}
+            >
+              <option value="" disabled hidden>
+                {T("متقدمة", "Advanced")}
+              </option>
+              {studies.map((study) =>
+                study.values.map((val, i) => (
+                  <option
+                    key={`${study.id}-${i}`}
+                    value={val}
+                    className="text-black"
+                  >
+                    {val}
+                  </option>
+                ))
+              )}
+            </select>
+
+            {/* Arrow Icon */}
+            <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
         </label>
       </aside>
     </div>
