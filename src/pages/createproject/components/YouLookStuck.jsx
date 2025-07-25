@@ -98,7 +98,8 @@ const YouLookStuck = ({ isOpen, setIsOpen }) => {
         type="button"
         variant="ghost"
         onClick={() => setIsOpen(true)}
-        className="bg-transparent flex items-center gap-[6px] text-black hover:bg-transparent hover:text-black/70 duration-500"
+        className=" bg-transparent flex items-center justify-center text-center min-w-[220px] gap-[6px] font-Cairo text-[14px] hover:bg-transparent hover:text-black/70 rounded-[8px] py-2 px-12   text-[#414651]  hover:bg-[#f7f7f7] duration-200  "
+        // className="bg-transparent font-Cairo flex items-center gap-[6px] text-black hover:bg-transparent hover:text-black/70 duration-500  hover:bg-gray-200 "
         //  className="flex items-center justify-center gap-1 text-sm font-semibold text-white"
         title={T("تحتاج مساعدة", "Need help")}
         aria-details={T(

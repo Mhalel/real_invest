@@ -52,7 +52,9 @@ const Head = ({ step, setStep }) => {
         {headOptions.btn && (
           <button
             onClick={headOptions.btn.fn}
-            className=" flex items-center gap-2  text-[14px] rounded-[8px] py-2 px-3 bg-white border border-[#D5D7DA]  text-[#414651]   "
+            className=" flex items-center justify-center text-center min-w-[220px] gap-2 font-Cairo text-[14px] rounded-[8px] py-[8px] px-[12px] bg-white border border-[#D5D7DA]  text-[#414651] shadow-sm hover:bg-gray-50 duration-200  "
+
+            // className=" flex items-center gap-2  text-[14px] rounded-[8px] py-2 px-3 bg-white border border-[#D5D7DA]  text-[#414651]   "
           >
             {T(headOptions.btn.ar, headOptions.btn.en)}
             <span>

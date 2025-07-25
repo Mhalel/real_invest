@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "name_en": "Riyadh Region",
+    "name_ar": "منطقة الرياض",
+    "values": [
+      "الرياض",
+      "Riyadh"
+    ]
+  },
+  {
+    "id": 2,
+    "name_en": "Eastern Province",
+    "name_ar": "المنطقة الشرقية",
+    "values": [
+      "الشرقية",
+      "Eastern Province"
+    ]
+  },
+  {
+    "id": 3,
+    "name_en": "Mecca Region",
+    "name_ar": "منطقة مكة المكرمة",
+    "values": [
+      "مكة المكرمة",
+      "Mecca "
+    ]
+  },
+  {
+    "id": 4,
+    "name_en": "Al Qassim Province",
+    "name_ar": "منطقة القصيم",
+    "values": [
+      "القصيم",
+      "Al Qassim Province"
+    ]
+  },
+  {
+    "id": 5,
+    "name_en": "Ha'il Region",
+    "name_ar": "منطقة حائل",
+    "values": [
+      "حائل",
+      "Ha'il"
+    ]
+  },
+  {
+    "id": 6,
+    "name_en": "Al Jawf Region",
+    "name_ar": "منطقة الجوف",
+    "values": [
+      "الجوف",
+      "Al Jawf"
+    ]
+  },
+  {
+    "id": 7,
+    "name_en": "Tabuk Region",
+    "name_ar": "منطقة تبوك",
+    "values": [
+      "تبوك",
+      "Tabuk"
+    ]
+  },
+  {
+    "id": 8,
+    "name_en": "Northern Borders Region",
+    "name_ar": "منطقة الحدود الشمالية",
+    "values": [
+      "الحدود الشمالية",
+      "Northern Borders"
+    ]
+  },
+  {
+    "id": 9,
+    "name_en": "Najran Region",
+    "name_ar": "منطقة نجران",
+    "values": [
+      "نجران",
+      "Najran"
+    ]
+  },
+  {
+    "id": 20,
+    "name_en": "Al Bahah Region",
+    "name_ar": "منطقة الباحة",
+    "values": [
+      "الباحة",
+      "Al Bahah"
+    ]
+  },
+  {
+    "id": 21,
+    "name_en": "Asir Region",
+    "name_ar": "منطقة عسير",
+    "values": [
+      "عسير",
+      "Asir"
+    ]
+  },
+  {
+    "id": 22,
+    "name_en": "Medina Region",
+    "name_ar": "منطقة المدينة المنورة",
+    "values": [
+      "المدينة المنورة",
+      "Medina"
+    ]
+  },
+  {
+    "id": 23,
+    "name_en": "Jazan Province",
+    "name_ar": "منطقة جازان",
+    "values": [
+      "جازان",
+      "Jazan Province"
+    ]
+  }
+]
