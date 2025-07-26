@@ -1,6 +1,6 @@
 import { useLang } from "../../../hooks/LangContext";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Main = ({ setStep, step }) => {
   return (
@@ -171,10 +171,59 @@ const propertyTypes = [
 ];
 
 const RealEstateSiteAnalysisReport = () => {
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedStudy, setSelectedStudy] = useState("");
-  const [selectedPropertyType, setSelectedPropertyType] = useState("");
   const { T } = useLang();
+  const [data, setData] = useState({
+    area: 0,
+    propertyType: "",
+    region: "",
+    studyType: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const [errors, setErrors] = useState({});
+  const handleErrors = () => {
+    const errors = {};
+
+    const areaValue = Number(data.area);
+
+    if (!data.area || isNaN(areaValue) || areaValue <= 0) {
+      errors.area = T(
+        "يرجى إدخال مساحة صحيحة للأرض",
+        "Please enter a valid land area"
+      );
+    }
+
+    if (!data.propertyType) {
+      errors.propertyType = T(
+        "يرجى اختيار نوع العقار",
+        "Please select a property type"
+      );
+    }
+
+    if (!data.region) {
+      errors.region = T("يرجى اختيار المدينة", "Please select a city");
+    }
+
+    if (!data.studyType) {
+      errors.studyType = T(
+        "يرجى اختيار نوع الدراسة",
+        "Please select a study type"
+      );
+    }
+
+    return errors;
+  };
+
+  useEffect(() => {
+    const validationErrors = handleErrors();
+    setErrors(validationErrors);
+    console.log("Validation Errors:", validationErrors);
+  }, [data]);
   return (
     <div
       dir={T("rtl", "ltr")}
@@ -298,10 +347,16 @@ const RealEstateSiteAnalysisReport = () => {
             {T("مساحة الأرض م²", "Land area m²")}
           </p>
           <input
-            type="text"
-            className="w-full border border-[#D5D7DA] rounded-lg py-[8px] px-[12px] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="number"
+            name="area"
+            value={data?.area}
+            onChange={handleChange}
+            className="w-full border border-[#D5D7DA] rounded-lg py-[8px] px-[12px] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             placeholder={T("مساحة الأرض", "Land area")}
           />
+          {errors.area && (
+            <p className="text-red-500 text-sm mt-1">{errors.area}</p>
+          )}
         </label>
 
         <label className="block w-full relative">
@@ -311,10 +366,11 @@ const RealEstateSiteAnalysisReport = () => {
           <div className="relative">
             <select
               className={`w-full appearance-none rounded-lg border bg-white px-[12px] py-[8px] shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                selectedPropertyType === "" ? "text-gray-400" : "text-gray-900"
+                data?.propertyType === "" ? "text-gray-400" : "text-gray-900"
               }`}
-              value={selectedPropertyType}
-              onChange={(e) => setSelectedPropertyType(e.target.value)}
+              value={data?.propertyType}
+              name="propertyType"
+              onChange={handleChange}
             >
               <option value="" disabled hidden>
                 {T("مبنى تجاري سكني", "Commercial residential building")}
@@ -356,10 +412,11 @@ const RealEstateSiteAnalysisReport = () => {
           <div className="relative">
             <select
               className={`w-full appearance-none rounded-lg border bg-white px-[12px] py-[8px] shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                selectedCity === "" ? "text-gray-400" : "text-gray-900"
+                data?.region === "" ? "text-gray-400" : "text-gray-900"
               }`}
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
+              value={data?.region}
+              name="region"
+              onChange={handleChange}
             >
               <option value="" disabled hidden>
                 {T("الرياض", "Riyadh")}
@@ -403,10 +460,11 @@ const RealEstateSiteAnalysisReport = () => {
           <div className="relative">
             <select
               className={`w-full appearance-none rounded-lg border bg-white px-[12px] py-[8px] shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                selectedStudy === "" ? "text-gray-400" : "text-gray-900"
+                data?.studyType === "" ? "text-gray-400" : "text-gray-900"
               }`}
-              value={selectedStudy}
-              onChange={(e) => setSelectedStudy(e.target.value)}
+              name="studyType"
+              value={data?.studyType}
+              onChange={handleChange}
             >
               <option value="" disabled hidden>
                 {T("متقدمة", "Advanced")}

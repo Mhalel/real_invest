@@ -47,7 +47,7 @@ const HeroSection = () => {
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
       <video
-        autoPlay
+        autoPlay={true}
         loop
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover z-0 blur-[3px]"
