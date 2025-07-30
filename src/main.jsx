@@ -4,13 +4,16 @@ import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
 import { LangProvider } from "./hooks/LangContext.jsx";
+import { PopupProvider } from "./hooks/popup.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
-      <LangProvider>
-        <App />
-      </LangProvider>
+      <PopupProvider>
+        <LangProvider>
+          <App />
+        </LangProvider>
+      </PopupProvider>
     </Router>
   </StrictMode>
 );

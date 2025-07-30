@@ -3,13 +3,14 @@ import { useLang } from "../../hooks/LangContext";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import ClosedPieChart from "./components/charts/ClosedPieChart";
 import Table from "../../components/tables/table";
-import PicsSwiper from "./components/PicsSwiper";
+// import PicsSwiper from "./components/PicsSwiper";
 import DonutChart from "./components/charts/DountChart";
 import CustomedlineChart from "./components/charts/CustomedlineChart";
+import { PreviewLandImages } from "./components/PreviewLandImages";
 
 const Home = () => {
   return (
-    <div className="font-Cairo flex flex-col gap-[72px] sm:px-16">
+    <div className="font-Cairo flex flex-col gap-[72px] py-10 sm:px-16">
       <ResidentialBuildingDevelopmentSection />
       <BasicInformationSection />
       <AreasSection />
@@ -51,7 +52,7 @@ const ResidentialBuildingDevelopmentSection = () => {
           {T("حي الشاطئ، جازان", "Al-Shatea District, Jazan")}
         </p>
       </div>
-      <PicsSwiper images={["/userImg.webp", "/userImg.webp"]} />
+      <PreviewLandImages landImages={["pic1.png", "pic2.png", "pic3.png"]} />
       <div className="flex items-center p-[10px] md:flex-row flex-col gap-[10px]">
         <p className="w-full font-Cairo font-medium text-[18px]">
           {T(text.ar, text.en)}
@@ -191,7 +192,7 @@ const AreasSection = () => {
 const CostTableSection = () => {
   const { T } = useLang();
   return (
-    <section className=" flex  md:flex-row flex-col md:gap-0 gap-10">
+    <section className=" flex   lg:flex-row flex-col md:gap-0 gap-10">
       <aside className="bg-[#0E7090] w-full md:rounded-r-none  rounded-[16px] p-8 flex flex-col gap-8">
         <Table
           title={T("جدول التكاليف", "Cost table")}
@@ -730,252 +731,189 @@ const ResidentialFloorsSection2 = () => {
 
 const CashFlowsFromSalesSection = () => {
   const { T } = useLang();
+  const Years = [
+    T("السنة الأولى", "First year"),
+    T("السنة الثانية", "Second year"),
+    T("السنة الثالثة", "Third year"),
+    T("السنة الرابعة", "Fourth year"),
+    T("السنة الخامسة", "Fifth year"),
+    T("السنة السادسة", "Sixth year"),
+    T("السنة السابعة", "Seventh year"),
+    T("السنة الثامنة", "Eighth year"),
+    T("السنة التاسعة", "Ninth year"),
+    T("السنة العاشرة", "Tenth year"),
+  ];
+
+  const TableArray = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>
+            {T("البيان", "Statement")} {T("(ريال/م²)", "riyals/m²")}
+          </span>
+        </div>
+      ),
+      ...Years.reduce((acc, value, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {value}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T("إجمالي التكاليف على السنة", "Total Annual Costs"),
+        y1: 1234567,
+        y2: 1234567,
+        y3: 1234567,
+        y4: 1234567,
+        y5: 1234567,
+        y6: 1234567,
+        y7: 1234567,
+        y8: 1234567,
+        y9: 1234567,
+        y10:1234567,
+      },
+      {
+        Statement: T("إيرادات السنة", "Annual Revenue"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("تكلفة المبيعات", "Sales Cost"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T(
+          "صافي الإيراد بعد تكلفة المبيعات",
+          "Net Revenue After Sales Cost"
+        ),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
+        y1: 1,
+        y2: 2,
+        // y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح بعد الضرائب", "Net Profit After Tax"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح بعد الزكاة", "Net Profit After Zakat"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        // y9: "-",
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح تراكمي", "Cumulative Net Profit"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("عائد الاستثمار سنوي", "Annual ROI"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("عائد الاستثمار تراكمي", "Cumulative ROI"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+    ],
+  };
   return (
     <section className="bg-[#0E7090] w-full   rounded-[16px] p-16 flex flex-col gap-6">
       <p dir={T("rtl", "ltr")} className="text-[36px] font-medium text-white">
         {T("التدفقات النقدية من البيع", "Cash flows from sales")}
       </p>
       <div className="flex lg:flex-row flex-col items-center justify-center   gap-16">
-        <div className="flex flex-col gap-4">
-          <p className=" text-center text-[20px] font-medium text-white ">
-            {T("السنة الثالثة", "Third year")}
-          </p>
           <Table
+          hover
             dir={T("rtl", "ltr")}
             textColor="text-white"
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T(
-                    "إجمالي التكاليف على السنة",
-                    "Total Annual Costs"
-                  ),
-                  number: 2068753,
-                },
-                {
-                  Statement: T("إيرادات السنة", "Annual Revenue"),
-                  number: 489067,
-                },
-                {
-                  Statement: T("تكلفة المبيعات", "Sales Cost"),
-                  number: 58688,
-                },
-                {
-                  Statement: T(
-                    "صافي الإيراد بعد تكلفة المبيعات",
-                    "Net Revenue After Sales Cost"
-                  ),
-                  number: 130825,
-                },
-                {
-                  Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الضرائب",
-                    "Net Profit After Tax"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الزكاة",
-                    "Net Profit After Zakat"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("صافي الربح تراكمي", "Cumulative Net Profit"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار سنوي", "Annual ROI"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار تراكمي", "Cumulative ROI"),
-                  number: 2747333,
-                },
-              ],
-            }}
+            data={TableArray}
           />
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className=" text-center text-[20px] text-white font-medium">
-            {T("السنة  الثانية", "Second year")}
-          </p>
-          <Table
-            dir={T("rtl", "ltr")}
-            textColor="text-white"
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T(
-                    "إجمالي التكاليف على السنة",
-                    "Total Annual Costs"
-                  ),
-                  number: 489067,
-                },
-                {
-                  Statement: T("إيرادات السنة", "Annual Revenue"),
-                  number: 58688,
-                },
-                {
-                  Statement: T("تكلفة المبيعات", "Sales Cost"),
-                  number: 130825,
-                },
-                {
-                  Statement: T(
-                    "صافي الإيراد بعد تكلفة المبيعات",
-                    "Net Revenue After Sales Cost"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الضرائب",
-                    "Net Profit After Tax"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الزكاة",
-                    "Net Profit After Zakat"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("صافي الربح تراكمي", "Cumulative Net Profit"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار سنوي", "Annual ROI"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار تراكمي", "Cumulative ROI"),
-                  number: 2747333,
-                },
-              ],
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className=" text-center text-[20px] text-white font-medium">
-            {T("السنة الاولى", "First year")}
-          </p>
-          <Table
-            dir={T("rtl", "ltr")}
-            textColor="text-white"
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T(
-                    "إجمالي التكاليف على السنة",
-                    "Total costs for the year"
-                  ),
-                  number: 2068753,
-                },
-                {
-                  Statement: T("إيرادات السنة", "Year's revenue"),
-                  number: 489067,
-                },
-                {
-                  Statement: T("تكلفة المبيعات", "cost of sales"),
-                  number: 58688,
-                },
-                {
-                  Statement: T(
-                    "صافي الإيراد بعد تكلفة المبيعات",
-                    "Net revenue after cost of sales"
-                  ),
-                  number: 130825,
-                },
-                {
-                  Statement: T("صافي الربح السنة", "Net profit for the year"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الضرائب",
-                    "Net profit after tax"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الزكاة",
-                    "Net profit after zakat"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("صافي الربح تراكمي", "Cumulative net profit"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار سنوي", "Annual ROI"),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "عائد الاستثمار تراكمي",
-                    "cumulative return on investment"
-                  ),
-                  number: 2747333,
-                },
-              ],
-            }}
-          />
-        </div>
       </div>
       <div className="flex md:flex-row flex-col text-white justify-between items-center text-center">
         <div className="flex w-full py-6 flex-col gap-1">
