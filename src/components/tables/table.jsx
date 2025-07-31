@@ -6,9 +6,16 @@ const Table = ({
   title = "",
   bg = "bg-white",
   textColor = "text-black",
-  hover = false,
+  hover = true,
 }) => {
   const { T } = useLang();
+  const headerLenght = Object.keys(data?.header).length;
+  const formatValue = (value) => {
+  if (isNaN(value)) return value;
+  if (String(value).length > 12)
+    return String(value).slice(0, 12) + ",\n" + String(value).slice(12);
+  return value || "-";
+};
   return (
     <div dir="rtl" className="flex flex-col w-full gap-8">
       {title && (
@@ -26,11 +33,11 @@ const Table = ({
         >
           <thead>
             <tr>
-              {Object.keys(data.header).map((key) => (
+              {Object.keys(data?.header).map((key) => (
                 <th
                   dir={T("rtl", "ltr")}
                   key={key}
-                  className="px-6 bg-[#FAFAFA] text-center py-3"
+                  className="px-2  bg-[#FAFAFA] text-center py-3"
                 >
                   {data.header[key]}
                 </th>
@@ -40,18 +47,19 @@ const Table = ({
           <tbody>
             {data?.body.map((row, index) => (
               <tr key={index}>
-                {Object.keys(data.header).map((key) => (
+                {Object.keys(data?.header).map((key) => (
                   <td
                     key={key}
                     dir="ltr"
-                    className="py-4 relative group px-6 text-center border-b hover:bg-gray-100 duration-200 border-[#E9EAEB]"
+                    className={`${
+                      !isNaN(row[key]) &&
+                      (String(row[key]).length < 5
+                        ? " px-6"
+                        : " px-1  text-[14px] ")
+                    }  relative group  text-center border-b hover:bg-gray-100 py-4 duration-200 border-[#E9EAEB]`}
                   >
-                    <div
-                      className={` ${
-                        !isNaN(row[key]) && "truncate max-w-[60px]"
-                      }  mx-auto`}
-                    >
-                      {row[key] || "-"}
+                    <div className={`  mx-auto`}>
+                      {formatValue(row[key])}
                     </div>
 
                     {hover &&

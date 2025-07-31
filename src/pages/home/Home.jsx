@@ -3,21 +3,31 @@ import { useLang } from "../../hooks/LangContext";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import ClosedPieChart from "./components/charts/ClosedPieChart";
 import Table from "../../components/tables/table";
-// import PicsSwiper from "./components/PicsSwiper";
 import DonutChart from "./components/charts/DountChart";
 import CustomedlineChart from "./components/charts/CustomedlineChart";
 import { PreviewLandImages } from "./components/PreviewLandImages";
+import { useState } from "react";
 
 const Home = () => {
+  const { T } = useLang();
   return (
     <div className="font-Cairo flex flex-col gap-[72px] py-10 sm:px-16">
       <ResidentialBuildingDevelopmentSection />
       <BasicInformationSection />
       <AreasSection />
       <CostTableSection />
+      <YearsNumber
+        OptNum={3}
+        title={T("عدد سنين البيع", "Number of years of sale")}
+      />
+      <ResidentialFloorsAndSales />
       <VariablesRatiosOnSalesSection />
       <ResidentialFloorsSection />
       <TotalRevenueSection />
+      <YearsNumber
+        OptNum={3}
+        title={T("عدد سنين البيع", "Number of years of sale")}
+      />
       <ProfitCostSection />
       <CashFlowsFromSalesSection />
       <VariableRatiosOnRent />
@@ -162,13 +172,13 @@ const AreasSection = () => {
               Statement: (
                 <div className="flex items-center gap-1 justify-center">
                   <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("Role", "Role")}</span>
+                  <span>{T("البيان", "Statement")}</span>
                 </div>
               ),
               number: (
                 <div className="flex items-center gap-1 justify-center">
                   <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("Role", "Role")}</span>
+                  <span>{T("المساحة", "Area")}</span>
                 </div>
               ),
             },
@@ -197,6 +207,7 @@ const CostTableSection = () => {
         <Table
           title={T("جدول التكاليف", "Cost table")}
           textColor="text-white"
+          dir={T("rtl", "ltr")}
           data={{
             header: {
               Statement: (
@@ -335,6 +346,117 @@ const CostTableSection = () => {
   );
 };
 
+const ResidentialFloorsAndSales = () => {
+  const { T } = useLang();
+  const residentialFloorsData = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      y1: (
+        <div className="flex items-center gap-1 justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>2025</span>
+        </div>
+      ),
+    },
+    body: [
+      {
+        Statement: (
+          <div className="flex flex-col gap-2">
+            <p>{T("المساحة الإجمالية", "Total area")}</p>
+            <p
+              dir={T("rtl", "ltr")}
+              className="flex items-center  justify-center gap-1"
+            >
+              <span>{T("الإجمالي", "Total")}</span>{" "}
+              <span>{" : " + 685.92 + T(" م٢", " m²")}</span>
+            </p>
+          </div>
+        ),
+        y1: 3,
+      },
+      {
+        Statement: T("نسبة اكتمال البيع", "Sales completion rate"),
+        y1: 3,
+      },
+      {
+        Statement: T("متوسط سعر البيع/م٢", "Average selling price/m²"),
+        y1: 3,
+      },
+    ],
+  };
+  return (
+    <section
+      dir={T("rtl", "ltr")}
+      className="flex items-start md:flex-row flex-col justify-center gap-[72px] w-full"
+    >
+      <aside className="w-full flex flex-col gap-[46px]">
+        <p className="text-[24px] text-center font-bold">
+          {T("الطوابق السكنية", "residential floors")}
+        </p>
+        <Table dir={T("ltr", "rtl")} data={residentialFloorsData} />
+      </aside>
+      <aside className=" w-full flex flex-col gap-[46px]">
+        <p className="text-[24px] text-center font-bold">
+          {T("نسب المتغيرات على البيع", "Variables ratios on sales")}
+        </p>
+        <Table
+          dir={T("ltr", "rtl")}
+          data={{
+            header: {
+              Statement: (
+                <div className="flex items-center gap-1 justify-center">
+                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
+                  <span>{T("البيان", "Statement")}</span>
+                </div>
+              ),
+              2025: (
+                <div className="flex items-center gap-1 justify-center">
+                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
+                  <span>2025</span>
+                </div>
+              ),
+            },
+            body: [
+              {
+                2025: 3,
+                Statement: T(
+                  "عدد سنوات البناء",
+                  "Number of Construction Years"
+                ),
+                number: "60%",
+              },
+              {
+                2025: 3,
+                Statement: T("نسبة الضريبة", "Tax Rate"),
+                number: "10%",
+              },
+              {
+                2025: 3,
+                Statement: T("زيادة السعر", "Price Increase"),
+                number: "5%",
+              },
+              {
+                2025: 3,
+                Statement: T("عمولة المبيعات", "Sales Commission"),
+                number: "5%",
+              },
+              {
+                2025: 3,
+                Statement: T("الزكاة", "Zakat"),
+                number: "5%",
+              },
+            ],
+          }}
+        />
+      </aside>
+    </section>
+  );
+};
 const VariablesRatiosOnSalesSection = () => {
   const { T } = useLang();
   return (
@@ -769,16 +891,16 @@ const CashFlowsFromSalesSection = () => {
     body: [
       {
         Statement: T("إجمالي التكاليف على السنة", "Total Annual Costs"),
-        y1: 1234567,
-        y2: 1234567,
-        y3: 1234567,
-        y4: 1234567,
-        y5: 1234567,
-        y6: 1234567,
-        y7: 1234567,
-        y8: 1234567,
-        y9: 1234567,
-        y10:1234567,
+        y1: 2,
+        y2: 2,
+        y3: 2,
+        y4: 2,
+        y5: 2,
+        y6: 2,
+        y7: 2,
+        y8: 2,
+        y9: 2,
+        y10: 2,
       },
       {
         Statement: T("إيرادات السنة", "Annual Revenue"),
@@ -826,7 +948,7 @@ const CashFlowsFromSalesSection = () => {
         Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
         y1: 1,
         y2: 2,
-        // y3: 3,
+        y3: 3,
         y4: 4,
         y5: 5,
         y6: 6,
@@ -858,7 +980,7 @@ const CashFlowsFromSalesSection = () => {
         y6: 6,
         y7: 7,
         y8: 8,
-        // y9: "-",
+        y9: null,
         y10: 10,
       },
       {
@@ -908,12 +1030,12 @@ const CashFlowsFromSalesSection = () => {
         {T("التدفقات النقدية من البيع", "Cash flows from sales")}
       </p>
       <div className="flex lg:flex-row flex-col items-center justify-center   gap-16">
-          <Table
+        <Table
           hover
-            dir={T("rtl", "ltr")}
-            textColor="text-white"
-            data={TableArray}
-          />
+          dir={T("rtl", "ltr")}
+          textColor="text-white"
+          data={TableArray}
+        />
       </div>
       <div className="flex md:flex-row flex-col text-white justify-between items-center text-center">
         <div className="flex w-full py-6 flex-col gap-1">
@@ -1245,6 +1367,49 @@ const PostCard = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const YearsNumber = ({ title, OptNum = 3, onChange }) => {
+  const [yearValue, setYearValue] = useState(1);
+
+  const handleClick = (number) => {
+    setYearValue(number);
+    if (onChange) onChange(number);
+  };
+
+  return (
+    <section
+      dir="rtl"
+      className="flex mx-auto w-fit flex-col items-center justify-center gap-6"
+    >
+      <h3 className="text-[32px] sm:text-[36px] font-medium">{title}</h3>
+
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        {Array.from({ length: OptNum }, (_, i) => {
+          const number = i + 1;
+          const isSelected = yearValue === number;
+
+          return (
+            <button
+              key={number}
+              onClick={() => handleClick(number)}
+              aria-pressed={isSelected}
+              className={`${
+                isSelected
+                  ? "bg-[#0E6F90] text-white"
+                  : "bg-[#8FC9DD] text-white opacity-75"
+              } 
+              size-[80px] sm:size-[133px]
+              rounded-full flex items-center justify-center 
+              font-black text-[48px] sm:text-[96px] transition duration-200`}
+            >
+              {number}
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 
