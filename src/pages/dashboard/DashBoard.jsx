@@ -93,14 +93,14 @@ const Banar = () => {
             "Find out all the numbers you need to have a risk-free Investments "
           )}
         </p>
-        <button
-          className={`bg-white  py-[10px] px-4 rounded-[8px] ${T(
+        <Link to={"/create-project"}
+          className={`bg-white flex justify-center items-center  py-[10px] px-4 rounded-[8px] ${T(
             "mr-auto",
             "ml-auto"
           )}  text-[#414651] text-[16px] w-1/4`}
         >
           {T("اختر أرضك", "Choose Your Land")}
-        </button>
+        </Link>
       </div>
     </section>
   );
