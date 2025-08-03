@@ -11,11 +11,11 @@ const Table = ({
   const { T } = useLang();
   const headerLenght = Object.keys(data?.header).length;
   const formatValue = (value) => {
-  if (isNaN(value)) return value;
-  if (String(value).length > 12)
-    return String(value).slice(0, 12) + ",\n" + String(value).slice(12);
-  return value || "-";
-};
+    if (isNaN(value)) return value;
+    if (String(value).length > 12)
+      return String(value).slice(0, 12) + ",\n" + String(value).slice(12);
+    return value || "-";
+  };
   return (
     <div dir="rtl" className="flex flex-col w-full gap-8">
       {title && (
@@ -56,10 +56,14 @@ const Table = ({
                       (String(row[key]).length < 5
                         ? " px-6"
                         : " px-1  text-[14px] ")
-                    }  relative group  text-center border-b hover:bg-gray-100 py-4 duration-200 border-[#E9EAEB]`}
+                    }  relative group   text-center border-b hover:bg-gray-100 py-4 duration-200 border-[#E9EAEB]`}
                   >
-                    <div className={`  mx-auto`}>
-                      {formatValue(row[key])}
+                    <div className="">
+                      {formatValue(row[key])?.toString().includes("\n")
+                        ? formatValue(row[key])
+                            .split("\n")
+                            .map((e, i) => <p key={i}>{e}</p>)
+                        : formatValue(row[key])}
                     </div>
 
                     {hover &&

@@ -81,50 +81,55 @@ const ResidentialBuildingDevelopmentSection = () => {
 
 const BasicInformationSection = () => {
   const { T } = useLang();
-  const dataArray = [
-    { Statement: T("عدد الطوابق", "Number of floors"), number: 3 },
-    { Statement: T("الطوابق السكنية", "Residential floors"), number: 2 },
-    { Statement: T("الملحق العلوي", "Upper annex"), number: 1 },
-    { Statement: T("الطابق الأرضي", "Ground floor"), number: 1 },
-    {
-      Statement: T(
-        "عدد طوابق الطابق السفلي (مواقف السيارات)",
-        "Number of basement floors (parking)"
+  const basicDataTable = {
+    header: {
+      Statement: (
+        <div className="flex  items-center gap-1 justify-center">
+          <div className="relative">
+            <HiOutlineQuestionMarkCircle className="text-gray-500" />
+            {/* <span className="absolute top-0 right-0 -translate-y-[110%] translate-x-full">
+                      aaa
+                    </span> */}
+          </div>
+          <span>{T("البيان", "Statement")}</span>
+        </div>
       ),
-      number: 1,
+      value: (
+        <div className="flex items-center gap-1 justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("العدد", "number")}</span>
+        </div>
+      ),
     },
-  ];
+    body: [
+      { Statement: T("عدد الطوابق", "Number of floors"), value: 3 },
+      { Statement: T("الطوابق السكنية", "Residential floors"), value: 2 },
+      { Statement: T("الملحق العلوي", "Upper annex"), value: 1 },
+      { Statement: T("الطابق الأرضي", "Ground floor"), value: 1 },
+      {
+        Statement: T(
+          "عدد طوابق الطابق السفلي (مواقف السيارات)",
+          "Number of basement floors (parking)"
+        ),
+        value: 1,
+      },
+    ],
+  };
   return (
     <section className=" flex  mx-auto   md:flex-row flex-col gap-20  lg:gap-[167px] justify-between items-center p-[10px]">
       <ClosedPieChart
         className="sm:w-[320px]  sm:h-[320px] w-[200px] h-[200px]"
         COLORS={["#E9EAEB", "#7F56D9", "#9E77ED", "#B692F6", "#D6BBFB"]}
-        data={dataArray.map(({ Statement, number }) => ({
+        data={basicDataTable?.body.map(({ Statement, value }) => ({
           name: Statement,
-          value: number,
+          value: value,
         }))}
       />
       <div className="grow">
         <Table
           title={T("البيانات الأساسية", "Basic Data")}
           dir={T("rtl", "ltr")}
-          data={{
-            header: {
-              Statement: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("البيان", "Statement")}</span>
-                </div>
-              ),
-              number: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("العدد", "number")}</span>
-                </div>
-              ),
-            },
-            body: dataArray,
-          }}
+          data={basicDataTable}
         />
       </div>
     </section>
@@ -133,65 +138,67 @@ const BasicInformationSection = () => {
 
 const AreasSection = () => {
   const { T } = useLang();
-  const chartData = [
-    { Statement: T("إجمالي مساحة الأرض", "Total Land Area"), number: 489 },
-    { Statement: T("مساحة الطابق الأرضي", "Ground Floor Area"), number: 293 },
-    {
-      Statement: T("مساحة الطابق السكني", "Residential Floor Area"),
-      number: 342,
+  const TableArray = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      Area: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("المساحة", "Area")}</span>
+        </div>
+      ),
     },
-    { Statement: T("مساحة الملحق العلوي", "Upper Annex Area"), number: 171 },
-    { Statement: T("مساحة الطابق السفلي", "Basement Floor Area"), number: 489 },
-    { Statement: T("المساحات المشتركة", "Common Areas"), number: 195.6 },
-    {
-      Statement: T("مساحة البناء الإجمالية", "Total Built-up Area"),
-      number: 1149.3,
-    },
-    {
-      Statement: T("نسبة بناء الدور الأرضي", "Ground Floor Build Ratio"),
-      number: 60,
-    },
-    {
-      Statement: T("نسبة بناء الدور المتكرر", "Typical Floor Build Ratio"),
-      number: 70,
-    },
-    {
-      Statement: T("نسبة بناء الملحق العلوي", "Upper Annex Build Ratio"),
-      number: 50,
-    },
-  ];
-
+    body: [
+      { Statement: T("إجمالي مساحة الأرض", "Total Land Area"), Area: 489 },
+      { Statement: T("مساحة الطابق الأرضي", "Ground Floor Area"), Area: 293 },
+      {
+        Statement: T("مساحة الطابق السكني", "Residential Floor Area"),
+        Area: 342,
+      },
+      { Statement: T("مساحة الملحق العلوي", "Upper Annex Area"), Area: 171 },
+      {
+        Statement: T("مساحة الطابق السفلي", "Basement Floor Area"),
+        Area: 489,
+      },
+      { Statement: T("المساحات المشتركة", "Common Areas"), Area: 195.6 },
+      {
+        Statement: T("مساحة البناء الإجمالية", "Total Built-up Area"),
+        Area: 1149.3,
+      },
+      {
+        Statement: T("نسبة بناء الدور الأرضي", "Ground Floor Build Ratio"),
+        Area: 60,
+      },
+      {
+        Statement: T("نسبة بناء الدور المتكرر", "Typical Floor Build Ratio"),
+        Area: 70,
+      },
+      {
+        Statement: T("نسبة بناء الملحق العلوي", "Upper Annex Build Ratio"),
+        Area: 50,
+      },
+    ],
+  };
   return (
     <section className=" flex     md:flex-row flex-col gap-20  lg:gap-[167px] justify-center items-center p-[10px]">
       <div className=" w-full md:w-[617px]">
         <Table
           title={T("المساحات", "Areas")}
           dir={T("rtl", "ltr")}
-          data={{
-            header: {
-              Statement: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("البيان", "Statement")}</span>
-                </div>
-              ),
-              number: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("المساحة", "Area")}</span>
-                </div>
-              ),
-            },
-            body: chartData,
-          }}
+          data={TableArray}
         />
       </div>
       <div className="sm:w-[340px]  sm:h-[340px] w-[200px] h-[200px] ">
         <DonutChart
           title="Access From"
-          data={chartData.map(({ Statement, number }) => ({
+          data={TableArray?.body?.map(({ Statement, Area }) => ({
             name: Statement,
-            value: number,
+            value: Area,
           }))}
         />
       </div>
@@ -201,54 +208,116 @@ const AreasSection = () => {
 
 const CostTableSection = () => {
   const { T } = useLang();
+  const CostTableData = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      value: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("المساحة", "Area")}</span>
+        </div>
+      ),
+    },
+    body: [
+      {
+        Statement: T("تكلفة البناء الكلية", "Total Construction Cost"),
+        value: 2068753,
+      },
+      {
+        Statement: T(
+          "تكلفة الطوابق السفلية (مواقف السيارات)",
+          "Basement Floors Cost (Parking)"
+        ),
+        value: 489067,
+      },
+      {
+        Statement: T("تكلفة المساحات المشتركة", "Common Areas Cost"),
+        value: 58688,
+      },
+      {
+        Statement: T("التكاليف غير المباشرة", "Indirect Costs"),
+        value: 130825,
+      },
+      {
+        Statement: T("إجمالى تكاليف البناء", "Total Building Costs"),
+        value: 2747333,
+      },
+    ],
+  };
+  const fixedCostTableData = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      value: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("ريال/م²", "riyals/m²")}</span>
+        </div>
+      ),
+    },
+    body: [
+      {
+        Statement: T("سعر المتر المربع ", "Price per square meter"),
+        value: 4000,
+      },
+      {
+        Statement: T("إجمالي مساحة الأرض", "Total land area"),
+        value: 489.07,
+      },
+      {
+        Statement: T("إجمالي تكلفة الأرض", "Total land cost"),
+        value: 1956267,
+      },
+    ],
+  };
+  const variableCostTableData = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      value: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("ريال/م²", "riyals/m²")}</span>
+        </div>
+      ),
+    },
+    body: [
+      {
+        Statement: T("تكلفة البناء", "Construction Cost"),
+        value: 1800,
+      },
+      { Statement: T("تكلفة المواقف", "Parking Cost"), value: 1000 },
+      {
+        Statement: T("تكلفة المساحات المشترك", "Common Area Cost"),
+        value: 300,
+      },
+      {
+        Statement: T("التكاليف غير المباشرة", "Indirect Costs"),
+        value: "%5",
+      },
+    ],
+  };
   return (
-    <section className=" flex   lg:flex-row flex-col md:gap-0 gap-10">
+    <section className=" flex   lg:flex-row flex-col md:gap-0  gap-10">
       <aside className="bg-[#0E7090] w-full md:rounded-r-none  rounded-[16px] p-8 flex flex-col gap-8">
         <Table
           title={T("جدول التكاليف", "Cost table")}
           textColor="text-white"
           dir={T("rtl", "ltr")}
-          data={{
-            header: {
-              Statement: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("البيان", "Statement")}</span>
-                </div>
-              ),
-              number: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("ريال", "riyals")}</span>
-                </div>
-              ),
-            },
-            body: [
-              {
-                Statement: T("تكلفة البناء الكلية", "Total Construction Cost"),
-                number: 2068753,
-              },
-              {
-                Statement: T(
-                  "تكلفة الطوابق السفلية (مواقف السيارات)",
-                  "Basement Floors Cost (Parking)"
-                ),
-                number: 489067,
-              },
-              {
-                Statement: T("تكلفة المساحات المشتركة", "Common Areas Cost"),
-                number: 58688,
-              },
-              {
-                Statement: T("التكاليف غير المباشرة", "Indirect Costs"),
-                number: 130825,
-              },
-              {
-                Statement: T("إجمالى تكاليف البناء", "Total Building Costs"),
-                number: 2747333,
-              },
-            ],
-          }}
+          data={CostTableData}
         />
         <div className="border-4 text-center text-white h-[364px]  border-white rounded-[16px] flex justify-center items-center flex-col gap-4 fotn-cairo ">
           <div className="flex flex-col gap-2   ">
@@ -271,36 +340,7 @@ const CostTableSection = () => {
             <Table
               dir={T("rtl", "ltr")}
               title={T("التكلفه الثابتة", "Fixed Cost")}
-              data={{
-                header: {
-                  Statement: (
-                    <div className="flex items-center gap-1 justify-center">
-                      <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                      <span>{T("البيان", "Statement")}</span>
-                    </div>
-                  ),
-                  number: (
-                    <div className="flex items-center gap-1 justify-center">
-                      <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                      <span>{T("ريال/م²", "riyals/m²")}</span>
-                    </div>
-                  ),
-                },
-                body: [
-                  {
-                    Statement: T("سعر المتر المربع ", "Price per square meter"),
-                    number: 4000,
-                  },
-                  {
-                    Statement: T("إجمالي مساحة الأرض", "Total land area"),
-                    number: 489.07,
-                  },
-                  {
-                    Statement: T("إجمالي تكلفة الأرض", "Total land cost"),
-                    number: 1956267,
-                  },
-                ],
-              }}
+              data={fixedCostTableData}
             />
           </div>
         </div>
@@ -308,37 +348,7 @@ const CostTableSection = () => {
           <Table
             dir={T("rtl", "ltr")}
             title={T("التكلفه المتغيرة", "Variable cost")}
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T("تكلفة البناء", "Construction Cost"),
-                  number: 1800,
-                },
-                { Statement: T("تكلفة المواقف", "Parking Cost"), number: 1000 },
-                {
-                  Statement: T("تكلفة المساحات المشترك", "Common Area Cost"),
-                  number: 300,
-                },
-                {
-                  Statement: T("التكاليف غير المباشرة", "Indirect Costs"),
-                  number: "%5",
-                },
-              ],
-            }}
+            data={variableCostTableData}
           />
         </div>
       </aside>
@@ -348,6 +358,9 @@ const CostTableSection = () => {
 
 const ResidentialFloorsAndSales = () => {
   const { T } = useLang();
+  const residentialFloorsYears = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+  ];
   const residentialFloorsData = {
     header: {
       Statement: (
@@ -356,11 +369,27 @@ const ResidentialFloorsAndSales = () => {
           <span>{T("البيان", "Statement")}</span>
         </div>
       ),
-      y1: (
-        <div className="flex items-center gap-1 justify-center">
-          <HiOutlineQuestionMarkCircle className="text-gray-500" />
-          <span>2025</span>
-        </div>
+      ...residentialFloorsYears.reduce(
+        (acc, { y, quistionMark, quistionValue }, index) => {
+          acc[`y${index + 1}`] = (
+            <div
+              key={index}
+              className="flex items-center gap-1 text-[12px] justify-center"
+            >
+              {quistionMark && (
+                <button>
+                  <HiOutlineQuestionMarkCircle
+                    size={15}
+                    className="text-gray-500"
+                  />
+                </button>
+              )}
+              {y}
+            </div>
+          );
+          return acc;
+        },
+        {}
       ),
     },
     body: [
@@ -377,15 +406,72 @@ const ResidentialFloorsAndSales = () => {
             </p>
           </div>
         ),
-        y1: 3,
+        y1: " م² 342.96",
       },
       {
         Statement: T("نسبة اكتمال البيع", "Sales completion rate"),
-        y1: 3,
+        y1: "50.0 %",
       },
       {
         Statement: T("متوسط سعر البيع/م٢", "Average selling price/m²"),
+        y1: 5000,
+      },
+    ],
+  };
+  const variablesRatiosOnSalesYears = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+  ];
+  const variablesRatiosOnSalesData = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...variablesRatiosOnSalesYears.reduce(
+        (acc, { y, quistionMark, quistionValue }, index) => {
+          acc[`y${index + 1}`] = (
+            <div
+              key={index}
+              className="flex items-center gap-1 text-[12px] justify-center"
+            >
+              {quistionMark && (
+                <button>
+                  <HiOutlineQuestionMarkCircle
+                    size={15}
+                    className="text-gray-500"
+                  />
+                </button>
+              )}
+              {y}
+            </div>
+          );
+          return acc;
+        },
+        {}
+      ),
+    },
+    body: [
+      {
         y1: 3,
+        Statement: T("عدد سنوات البناء", "Number of Construction Years"),
+      },
+      {
+        y1: 3,
+        Statement: T("نسبة الضريبة", "Tax Rate"),
+      },
+      {
+        y1: 3,
+        Statement: T("زيادة السعر", "Price Increase"),
+      },
+      {
+        y1: 3,
+        Statement: T("عمولة المبيعات", "Sales Commission"),
+      },
+      {
+        y1: 3,
+        Statement: T("الزكاة", "Zakat"),
       },
     ],
   };
@@ -398,60 +484,15 @@ const ResidentialFloorsAndSales = () => {
         <p className="text-[24px] text-center font-bold">
           {T("الطوابق السكنية", "residential floors")}
         </p>
-        <Table dir={T("ltr", "rtl")} data={residentialFloorsData} />
+        <Table dir={T("rtl", "ltr")} data={residentialFloorsData} />
       </aside>
       <aside className=" w-full flex flex-col gap-[46px]">
         <p className="text-[24px] text-center font-bold">
           {T("نسب المتغيرات على البيع", "Variables ratios on sales")}
         </p>
         <Table
-          dir={T("ltr", "rtl")}
-          data={{
-            header: {
-              Statement: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>{T("البيان", "Statement")}</span>
-                </div>
-              ),
-              2025: (
-                <div className="flex items-center gap-1 justify-center">
-                  <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                  <span>2025</span>
-                </div>
-              ),
-            },
-            body: [
-              {
-                2025: 3,
-                Statement: T(
-                  "عدد سنوات البناء",
-                  "Number of Construction Years"
-                ),
-                number: "60%",
-              },
-              {
-                2025: 3,
-                Statement: T("نسبة الضريبة", "Tax Rate"),
-                number: "10%",
-              },
-              {
-                2025: 3,
-                Statement: T("زيادة السعر", "Price Increase"),
-                number: "5%",
-              },
-              {
-                2025: 3,
-                Statement: T("عمولة المبيعات", "Sales Commission"),
-                number: "5%",
-              },
-              {
-                2025: 3,
-                Statement: T("الزكاة", "Zakat"),
-                number: "5%",
-              },
-            ],
-          }}
+          dir={T("rtl", "ltr")}
+          data={variablesRatiosOnSalesData}
         />
       </aside>
     </section>
@@ -459,394 +500,406 @@ const ResidentialFloorsAndSales = () => {
 };
 const VariablesRatiosOnSalesSection = () => {
   const { T } = useLang();
+  const Years = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+    { y: "2026", quistionMark: true, quistionValue: "" },
+    { y: "2027", quistionMark: true, quistionValue: "" },
+  ];
+
+  const TableArray = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {quistionMark && (
+              <button>
+                <HiOutlineQuestionMarkCircle
+                  size={15}
+                  className="text-gray-500"
+                />
+              </button>
+            )}
+            {y}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T("عدد سنوات البناء", "Number of Construction Years"),
+        y1: 1,
+        y2: 1,
+        y3: 1,
+      },
+      {
+        Statement: T("نسبة الضريبة", "Tax Rate"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("زيادة السعر", "Price Increase"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("عمولة المبيعات", "Sales Commission"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("الزكاة", "Zakat"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+    ],
+  };
   return (
     <section className="flex flex-col gap-8">
       <p className="text-[24px] text-center font-bold">
         {T("نسب المتغيرات على البيع", "Variables ratios on sales")}
       </p>
-      <Table
-        dir={T("ltr", "rtl")}
-        data={{
-          header: {
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            2025: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2025</span>
-              </div>
-            ),
-            2026: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2026</span>
-              </div>
-            ),
-            2027: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2027</span>
-              </div>
-            ),
-          },
-          body: [
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("عدد سنوات البناء", "Number of Construction Years"),
-              number: "60%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("نسبة الضريبة", "Tax Rate"),
-              number: "10%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("زيادة السعر", "Price Increase"),
-              number: "5%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("عمولة المبيعات", "Sales Commission"),
-              number: "5%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("الزكاة", "Zakat"),
-              number: "5%",
-            },
-          ],
-        }}
-      />
+      <Table dir={T("rtl", "ltr")} data={TableArray} />
     </section>
   );
 };
 const ResidentialFloorsSection = () => {
   const { T } = useLang();
+  const Years = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+    { y: "2026", quistionMark: true, quistionValue: "" },
+    { y: "2027", quistionMark: true, quistionValue: "" },
+  ];
+
+  const residentialFloorsTable = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {quistionMark && (
+              <button>
+                <HiOutlineQuestionMarkCircle
+                  size={15}
+                  className="text-gray-500"
+                />
+              </button>
+            )}
+            {y}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T(
+          `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
+          `Total Area\nTotal: 685.92 m²`
+        ),
+        y1: 1,
+        y2: 1,
+        y3: 1,
+      },
+      {
+        Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+    ],
+  };
   return (
     <section className="flex flex-col gap-8">
       <p className="text-[24px] text-center font-bold">
         {T("الطوابق السكنية", "residential floors")}
       </p>
-      <Table
-        dir={T("ltr", "rtl")}
-        data={{
-          header: {
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            2025: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2025</span>
-              </div>
-            ),
-            2026: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2026</span>
-              </div>
-            ),
-            2027: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2027</span>
-              </div>
-            ),
-          },
-          body: [
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T(
-                `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
-                `Total Area\nTotal: 685.92 m²`
-              ),
-              number: "60%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
-              number: "10%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
-              number: "5%",
-            },
-          ],
-        }}
-      />
+      <Table dir={T("rtl", "ltr")} data={residentialFloorsTable} />
     </section>
   );
 };
 
 const TotalRevenueSection = () => {
   const { T } = useLang();
+  const Years = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+    { y: "2026", quistionMark: true, quistionValue: "" },
+    { y: "2027", quistionMark: true, quistionValue: "" },
+  ];
+
+  const totalRevenueTable = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {quistionMark && (
+              <button>
+                <HiOutlineQuestionMarkCircle
+                  size={15}
+                  className="text-gray-500"
+                />
+              </button>
+            )}
+            {y}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T("إجمالي الإيراد السنوي", "Total Annual Revenue"),
+        y1: 1,
+        y2: 1,
+        y3: 1,
+      },
+    ],
+  };
   return (
     <section className="flex border-4 border-[#0E7090] rounded-[16px] overflow-hidden p-[64px] flex-col gap-8">
       <p className="text-[24px] text-center font-bold">
         {T("إجمالي الإيرادات", "Total revenue")}
       </p>
-      <Table
-        dir={T("ltr", "rtl")}
-        data={{
-          header: {
-            test: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2025</span>
-              </div>
-            ),
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            2027: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2027</span>
-              </div>
-            ),
-            2026: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2026</span>
-              </div>
-            ),
-          },
-          body: [
-            {
-              2027: 1,
-              2026: 0,
-              test: 3,
-              Statement: T("إجمالي الإيراد السنوي", "Total Annual Revenue"),
-              number: "60%",
-            },
-          ],
-        }}
-      />
+      <Table dir={T("rtl", "ltr")} data={totalRevenueTable} />
     </section>
   );
 };
 
 const TotalRevenueSection2 = () => {
   const { T } = useLang();
+  const Years = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+    { y: "2026", quistionMark: true, quistionValue: "" },
+    { y: "2027", quistionMark: true, quistionValue: "" },
+  ];
+
+  const residentialFloorsTable = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {quistionMark && (
+              <button>
+                <HiOutlineQuestionMarkCircle
+                  size={15}
+                  className="text-gray-500"
+                />
+              </button>
+            )}
+            {y}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T("إجمالي الإيراد السنوي", "Total Annual Revenue"),
+        y1: 1,
+        y2: 1,
+        y3: 1,
+      },
+    ],
+  };
   return (
     <section className="flex border-4 border-[#0E7090] rounded-[16px] overflow-hidden p-[64px] flex-col gap-8">
       <p className="text-[24px] text-center font-bold">
         {T("إجمالي الإيرادات", "Total revenue")}
       </p>
-      <Table
-        dir={T("ltr", "rtl")}
-        data={{
-          header: {
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            2025: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2025</span>
-              </div>
-            ),
-            2026: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2026</span>
-              </div>
-            ),
-            2027: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2027</span>
-              </div>
-            ),
-          },
-          body: [
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("إجمالي الإيراد السنوي", "Total Annual Revenue"),
-              number: "60%",
-            },
-          ],
-        }}
-      />
+      <Table dir={T("rtl", "ltr")} data={residentialFloorsTable} />
     </section>
   );
 };
 
 const VariableRatiosOnRent = () => {
   const { T } = useLang();
+  const Years = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+    { y: "2026", quistionMark: true, quistionValue: "" },
+    { y: "2027", quistionMark: true, quistionValue: "" },
+  ];
+
+  const variableRatiosOnRentsTable = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {quistionMark && (
+              <button>
+                <HiOutlineQuestionMarkCircle
+                  size={15}
+                  className="text-gray-500"
+                />
+              </button>
+            )}
+            {y}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T("عدد سنوات البناء", "Number of Construction Years"),
+        y1: 1,
+        y2: 1,
+        y3: 1,
+      },
+      {
+        Statement: T("نسبة الضريبة", "Tax Rate"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("زيادة السعر", "Price Increase"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("عمولة المبيعات", "Sales Commission"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("الزكاة", "Zakat"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+    ],
+  };
   return (
     <section className="flex flex-col gap-8">
       <p className="text-[24px] text-center font-bold">
         {T("نسب المتغيرات على الإيجار", "Variable ratios on rent")}
       </p>
-      <Table
-        dir={T("ltr", "rtl")}
-        data={{
-          header: {
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            2025: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2025</span>
-              </div>
-            ),
-            2026: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2026</span>
-              </div>
-            ),
-            2027: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2027</span>
-              </div>
-            ),
-          },
-          body: [
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("عدد سنوات البناء", "Number of Construction Years"),
-              number: "60%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("نسبة الضريبة", "Tax Rate"),
-              number: "10%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("زيادة السعر", "Price Increase"),
-              number: "5%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("عمولة المبيعات", "Sales Commission"),
-              number: "5%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("الزكاة", "Zakat"),
-              number: "5%",
-            },
-          ],
-        }}
-      />
+      <Table dir={T("rtl", "ltr")} data={variableRatiosOnRentsTable} />
     </section>
   );
 };
 const ResidentialFloorsSection2 = () => {
   const { T } = useLang();
+  const Years = [
+    { y: "2025", quistionMark: true, quistionValue: "" },
+    { y: "2026", quistionMark: true, quistionValue: "" },
+    { y: "2027", quistionMark: true, quistionValue: "" },
+  ];
+
+  const residentialFloors2Table = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>{T("البيان", "Statement")}</span>
+        </div>
+      ),
+      ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {quistionMark && (
+              <button>
+                <HiOutlineQuestionMarkCircle
+                  size={15}
+                  className="text-gray-500"
+                />
+              </button>
+            )}
+            {y}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T(
+          `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
+          `Total Area\nTotal: 685.92 m²`
+        ),
+        y1: 1,
+        y2: 1,
+        y3: 1,
+      },
+      {
+        Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+      {
+        Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+      },
+    ],
+  };
   return (
     <section className="flex flex-col gap-8">
       <p className="text-[24px] text-center font-bold">
         {T("الطوابق السكنية", "residential floors")}
       </p>
-      <Table
-        dir={T("ltr", "rtl")}
-        data={{
-          header: {
-            Statement: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>{T("البيان", "Statement")}</span>
-              </div>
-            ),
-            2025: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2025</span>
-              </div>
-            ),
-            2026: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2026</span>
-              </div>
-            ),
-            2027: (
-              <div className="flex items-center gap-1 justify-center">
-                <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                <span>2027</span>
-              </div>
-            ),
-          },
-          body: [
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T(
-                `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
-                `Total Area\nTotal: 685.92 m²`
-              ),
-              number: "60%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
-              number: "10%",
-            },
-            {
-              2025: 3,
-              2026: 0,
-              2027: 1,
-              Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
-              number: "5%",
-            },
-          ],
-        }}
-      />
+      <Table dir={T("rtl", "ltr")} data={residentialFloors2Table} />
     </section>
   );
 };
@@ -891,16 +944,16 @@ const CashFlowsFromSalesSection = () => {
     body: [
       {
         Statement: T("إجمالي التكاليف على السنة", "Total Annual Costs"),
-        y1: 2,
-        y2: 2,
-        y3: 2,
-        y4: 2,
-        y5: 2,
-        y6: 2,
-        y7: 2,
-        y8: 2,
-        y9: 2,
-        y10: 2,
+        y1: 1,
+        y2: 1,
+        y3: 1,
+        y4: 1,
+        y5: 1,
+        y6: 1,
+        y7: 1,
+        y8: 1,
+        y9: 1,
+        y10: 1,
       },
       {
         Statement: T("إيرادات السنة", "Annual Revenue"),
@@ -1057,185 +1110,137 @@ const CashFlowsFromSalesSection = () => {
     </section>
   );
 };
+
 const CashFlowsFromRent = () => {
   const { T } = useLang();
+  const Years = [
+    T("السنة الأولى", "First year"),
+    T("السنة الثانية", "Second year"),
+    T("السنة الثالثة", "Third year"),
+    T("السنة الرابعة", "Fourth year"),
+    T("السنة الخامسة", "Fifth year"),
+    T("السنة السادسة", "Sixth year"),
+    T("السنة السابعة", "Seventh year"),
+    T("السنة الثامنة", "Eighth year"),
+    T("السنة التاسعة", "Ninth year"),
+    T("السنة العاشرة", "Tenth year"),
+  ];
+
+  const TableArray = {
+    header: {
+      Statement: (
+        <div className="flex items-center gap-1  text-nowrap justify-center">
+          <HiOutlineQuestionMarkCircle className="text-gray-500" />
+          <span>
+            {T("البيان", "Statement")} {T("(ريال/م²)", "riyals/m²")}
+          </span>
+        </div>
+      ),
+      ...Years.reduce((acc, value, index) => {
+        acc[`y${index + 1}`] = (
+          <div
+            key={index}
+            className="flex items-center gap-1 text-[12px] justify-center"
+          >
+            {value}
+          </div>
+        );
+        return acc;
+      }, {}),
+    },
+    body: [
+      {
+        Statement: T("إيرادات السنة", "Annual Revenue"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح بعد الضرائب", "Net Profit After Tax"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("صافي الربح بعد الزكاة", "Net Profit After Zakat"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+      {
+        Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
+        y1: 1,
+        y2: 2,
+        y3: 3,
+        y4: 4,
+        y5: 5,
+        y6: 6,
+        y7: 7,
+        y8: 8,
+        y9: 9,
+        y10: 10,
+      },
+    ],
+  };
   return (
     <section className="bg-[#0E7090] w-full   rounded-[16px] p-16 flex flex-col gap-6">
       <p dir={T("rtl", "ltr")} className="text-[36px] font-medium text-white">
-        {T("التدفقات النقدية من الإيجار", "cash flows from rent")}
+        {T("التدفقات النقدية من البيع", "Cash flows from sales")}
       </p>
       <div className="flex lg:flex-row flex-col items-center justify-center   gap-16">
-        <div className="flex flex-col gap-4">
-          <p className=" text-center text-[20px] font-medium text-white ">
-            {T("السنة الثالثة", "Third year")}
-          </p>
-          <Table
-            dir={T("rtl", "ltr")}
-            textColor="text-white"
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T("إيرادات السنة", "Annual Revenue"),
-                  number: 489067,
-                },
-                {
-                  Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
-                  number: 58688,
-                },
-                {
-                  Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
-                  number: 130825,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الضرائب",
-                    "Net Profit After Tax"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الزكاة",
-                    "Net Profit After Zakat"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
-                  number: 2747333,
-                },
-              ],
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className=" text-center text-[20px] text-white font-medium">
-            {T("السنة  الثانية", "Second year")}
-          </p>
-          <Table
-            dir={T("rtl", "ltr")}
-            textColor="text-white"
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T("إيرادات السنة", "Annual Revenue"),
-                  number: 489067,
-                },
-                {
-                  Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
-                  number: 58688,
-                },
-                {
-                  Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
-                  number: 130825,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الضرائب",
-                    "Net Profit After Tax"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الزكاة",
-                    "Net Profit After Zakat"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
-                  number: 2747333,
-                },
-              ],
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className=" text-center text-[20px] text-white font-medium">
-            {T("السنة الاولى", "First year")}
-          </p>
-          <Table
-            dir={T("rtl", "ltr")}
-            textColor="text-white"
-            data={{
-              header: {
-                Statement: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("البيان", "Statement")}</span>
-                  </div>
-                ),
-                number: (
-                  <div className="flex items-center gap-1 justify-center">
-                    <HiOutlineQuestionMarkCircle className="text-gray-500" />
-                    <span>{T("ريال/م²", "riyals/m²")}</span>
-                  </div>
-                ),
-              },
-              body: [
-                {
-                  Statement: T("إيرادات السنة", "Year's Revenue"),
-                  number: 2068753,
-                },
-                {
-                  Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
-                  number: 489067,
-                },
-                {
-                  Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
-                  number: 58688,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الضرائب",
-                    "Net Profit After Tax"
-                  ),
-                  number: 130825,
-                },
-                {
-                  Statement: T(
-                    "صافي الربح بعد الزكاة",
-                    "Net Profit After Zakat"
-                  ),
-                  number: 2747333,
-                },
-                {
-                  Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
-                  number: 2747333,
-                },
-              ],
-            }}
-          />
-        </div>
+        <Table
+          hover
+          dir={T("rtl", "ltr")}
+          textColor="text-white"
+          data={TableArray}
+        />
       </div>
       <div className="flex text-white justify-between items-center text-center">
         <div className="flex w-full py-6 flex-col gap-1">
@@ -1248,6 +1253,337 @@ const CashFlowsFromRent = () => {
     </section>
   );
 };
+
+// const CashFlowsFromRent = () => {
+//   const { T } = useLang();
+
+//   const residentialFloorsTable = {
+//     header: {
+//       Statement: (
+//         <div className="flex items-center gap-1  text-nowrap justify-center">
+//           <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//           <span>{T("البيان", "Statement")}</span>
+//         </div>
+//       ),
+//       value: (
+//         <div className="flex items-center gap-1 justify-center">
+//           <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//           <span>{T("ريال/م²", "riyals/m²")}</span>
+//         </div>
+//       ),
+//     },
+//     body: [
+//       {
+//         Statement: T(
+//           `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
+//           `Total Area\nTotal: 685.92 m²`
+//         ),
+//         y1: 1,
+//       },
+//       {
+//         Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
+//         y1: 1,
+//       },
+//       {
+//         Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
+//         y1: 1,
+//       },
+//     ],
+//   };
+//   // const residentialFloorsTable = {
+//   //   header: {
+//   //     Statement: (
+//   //       <div className="flex items-center gap-1  text-nowrap justify-center">
+//   //         <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//   //         <span>{T("البيان", "Statement")}</span>
+//   //       </div>
+//   //     ),
+//   //     ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+//   //       acc[`y${index + 1}`] = (
+//   //         <div
+//   //           key={index}
+//   //           className="flex items-center gap-1 text-[12px] justify-center"
+//   //         >
+//   //           {quistionMark && (
+//   //             <button>
+//   //               <HiOutlineQuestionMarkCircle
+//   //                 size={15}
+//   //                 className="text-gray-500"
+//   //               />
+//   //             </button>
+//   //           )}
+//   //           {y}
+//   //         </div>
+//   //       );
+//   //       return acc;
+//   //     }, {}),
+//   //   },
+//   //   body: [
+//   //     {
+//   //       Statement: T(
+//   //         `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
+//   //         `Total Area\nTotal: 685.92 m²`
+//   //       ),
+//   //       y1: 1,
+//   //       y2: 1,
+//   //       y3: 1,
+//   //     },
+//   //     {
+//   //       Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
+//   //       y1: 1,
+//   //       y2: 2,
+//   //       y3: 3,
+//   //     },
+//   //     {
+//   //       Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
+//   //       y1: 1,
+//   //       y2: 2,
+//   //       y3: 3,
+//   //     },
+//   //   ],
+//   // };
+//   // const residentialFloorsTable = {
+//   //   header: {
+//   //     Statement: (
+//   //       <div className="flex items-center gap-1  text-nowrap justify-center">
+//   //         <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//   //         <span>{T("البيان", "Statement")}</span>
+//   //       </div>
+//   //     ),
+//   //     ...Years.reduce((acc, { y, quistionMark, quistionValue }, index) => {
+//   //       acc[`y${index + 1}`] = (
+//   //         <div
+//   //           key={index}
+//   //           className="flex items-center gap-1 text-[12px] justify-center"
+//   //         >
+//   //           {quistionMark && (
+//   //             <button>
+//   //               <HiOutlineQuestionMarkCircle
+//   //                 size={15}
+//   //                 className="text-gray-500"
+//   //               />
+//   //             </button>
+//   //           )}
+//   //           {y}
+//   //         </div>
+//   //       );
+//   //       return acc;
+//   //     }, {}),
+//   //   },
+//   //   body: [
+//   //     {
+//   //       Statement: T(
+//   //         `المساحة الإجمالية\nالإجمالي:  685.92 م٢`,
+//   //         `Total Area\nTotal: 685.92 m²`
+//   //       ),
+//   //       y1: 1,
+//   //       y2: 1,
+//   //       y3: 1,
+//   //     },
+//   //     {
+//   //       Statement: T("نسبة اكتمال البيع", "Sales Completion Rate"),
+//   //       y1: 1,
+//   //       y2: 2,
+//   //       y3: 3,
+//   //     },
+//   //     {
+//   //       Statement: T("متوسط سعر البيع/م٢", "Average Selling Price/m²"),
+//   //       y1: 1,
+//   //       y2: 2,
+//   //       y3: 3,
+//   //     },
+//   //   ],
+//   // };
+
+//   return (
+//     <section className="bg-[#0E7090] w-full   rounded-[16px] p-16 flex flex-col gap-6">
+//       <p dir={T("rtl", "ltr")} className="text-[36px] font-medium text-white">
+//         {T("التدفقات النقدية من الإيجار", "cash flows from rent")}
+//       </p>
+//       <div className="flex lg:flex-row flex-col items-center justify-center   gap-16">
+//         <div className="flex flex-col gap-4">
+//           <p className=" text-center text-[20px] font-medium text-white ">
+//             {T("السنة الثالثة", "Third year")}
+//           </p>
+//           <Table
+//             dir={T("rtl", "ltr")}
+//             textColor="text-white"
+//             data={{
+//               header: {
+//                 Statement: (
+//                   <div className="flex items-center gap-1 justify-center">
+//                     <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//                     <span>{T("البيان", "Statement")}</span>
+//                   </div>
+//                 ),
+//                 number: (
+//                   <div className="flex items-center gap-1 justify-center">
+//                     <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//                     <span>{T("ريال/م²", "riyals/m²")}</span>
+//                   </div>
+//                 ),
+//               },
+//               body: [
+//                 {
+//                   Statement: T("إيرادات السنة", "Annual Revenue"),
+//                   number: 489067,
+//                 },
+//                 {
+//                   Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
+//                   number: 58688,
+//                 },
+//                 {
+//                   Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
+//                   number: 130825,
+//                 },
+//                 {
+//                   Statement: T(
+//                     "صافي الربح بعد الضرائب",
+//                     "Net Profit After Tax"
+//                   ),
+//                   number: 2747333,
+//                 },
+//                 {
+//                   Statement: T(
+//                     "صافي الربح بعد الزكاة",
+//                     "Net Profit After Zakat"
+//                   ),
+//                   number: 2747333,
+//                 },
+//                 {
+//                   Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
+//                   number: 2747333,
+//                 },
+//               ],
+//             }}
+//           />
+//         </div>
+//         <div className="flex flex-col gap-4">
+//           <p className=" text-center text-[20px] text-white font-medium">
+//             {T("السنة  الثانية", "Second year")}
+//           </p>
+//           <Table
+//             dir={T("rtl", "ltr")}
+//             textColor="text-white"
+//             data={{
+//               header: {
+//                 Statement: (
+//                   <div className="flex items-center gap-1 justify-center">
+//                     <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//                     <span>{T("البيان", "Statement")}</span>
+//                   </div>
+//                 ),
+//                 number: (
+//                   <div className="flex items-center gap-1 justify-center">
+//                     <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//                     <span>{T("ريال/م²", "riyals/m²")}</span>
+//                   </div>
+//                 ),
+//               },
+//               body: [
+//                 {
+//                   Statement: T("إيرادات السنة", "Annual Revenue"),
+//                   number: 489067,
+//                 },
+//                 {
+//                   Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
+//                   number: 58688,
+//                 },
+//                 {
+//                   Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
+//                   number: 130825,
+//                 },
+//                 {
+//                   Statement: T(
+//                     "صافي الربح بعد الضرائب",
+//                     "Net Profit After Tax"
+//                   ),
+//                   number: 2747333,
+//                 },
+//                 {
+//                   Statement: T(
+//                     "صافي الربح بعد الزكاة",
+//                     "Net Profit After Zakat"
+//                   ),
+//                   number: 2747333,
+//                 },
+//                 {
+//                   Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
+//                   number: 2747333,
+//                 },
+//               ],
+//             }}
+//           />
+//         </div>
+//         <div className="flex flex-col gap-4">
+//           <p className=" text-center text-[20px] text-white font-medium">
+//             {T("السنة الاولى", "First year")}
+//           </p>
+//           <Table
+//             dir={T("rtl", "ltr")}
+//             textColor="text-white"
+//             data={{
+//               header: {
+//                 Statement: (
+//                   <div className="flex items-center gap-1 justify-center">
+//                     <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//                     <span>{T("البيان", "Statement")}</span>
+//                   </div>
+//                 ),
+//                 number: (
+//                   <div className="flex items-center gap-1 justify-center">
+//                     <HiOutlineQuestionMarkCircle className="text-gray-500" />
+//                     <span>{T("ريال/م²", "riyals/m²")}</span>
+//                   </div>
+//                 ),
+//               },
+//               body: [
+//                 {
+//                   Statement: T("إيرادات السنة", "Year's Revenue"),
+//                   number: 2068753,
+//                 },
+//                 {
+//                   Statement: T("مصاريف الصيانة", "Maintenance Expenses"),
+//                   number: 489067,
+//                 },
+//                 {
+//                   Statement: T("صافي الربح السنة", "Net Profit (Annual)"),
+//                   number: 58688,
+//                 },
+//                 {
+//                   Statement: T(
+//                     "صافي الربح بعد الضرائب",
+//                     "Net Profit After Tax"
+//                   ),
+//                   number: 130825,
+//                 },
+//                 {
+//                   Statement: T(
+//                     "صافي الربح بعد الزكاة",
+//                     "Net Profit After Zakat"
+//                   ),
+//                   number: 2747333,
+//                 },
+//                 {
+//                   Statement: T("عائد الاستثمار للسنة", "Annual ROI"),
+//                   number: 2747333,
+//                 },
+//               ],
+//             }}
+//           />
+//         </div>
+//       </div>
+//       <div className="flex text-white justify-between items-center text-center">
+//         <div className="flex w-full py-6 flex-col gap-1">
+//           <p className="text-[20px] font-Cairo ">
+//             {T("فترة الاسترداد", "Recovery period")}
+//           </p>
+//           <p className="text-[48px]">15.71</p>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
 function ProfitCostSection() {
   const { T } = useLang();
